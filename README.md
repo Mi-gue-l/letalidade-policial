@@ -5,10 +5,10 @@
 [![FAIR](https://img.shields.io/badge/FAIR-F%20A%20I%20R-green)](#princípios-fair)
 ![Python 3.13](https://img.shields.io/badge/python-3.13-blue)
 
-📄 **Artigo publicado:** <https://mi-gue-l.github.io/letalidade-policial-rio/>
-(o código-fonte da página está em [`docs/index.html`](docs/index.html))
+📄 **Artigo publicado:** <https://github.com/Mi-gue-l/letalidade-policial>
+(o código-fonte da página está em [`docs/index.html`] (docs/index.html))
 
-[![Série temporal das vítimas](docs/assets/fig1_serie_temporal.png)](https://mi-gue-l.github.io/letalidade-policial-rio/)
+[![Série temporal das vítimas](docs/assets/fig1_serie_temporal.png)](https://github.com/Mi-gue-l/letalidade-policial)
 
 Projeto final de **Linguagem de Programação (Análise e Visualização de Dados com Python)**, Bacharelado em Sistemas de Informação, 6º período, **Unilasalle RJ**.
 **Autor:** Miguel Garcia Lopes do Amaral · **Professor:** Alexandre Neves Louzada
