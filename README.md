@@ -6,7 +6,7 @@
 ![Python 3.13](https://img.shields.io/badge/python-3.13-blue)
 
 📄 **Artigo publicado:** <https://github.com/Mi-gue-l/letalidade-policial>
-(o código-fonte da página está em [`docs/index.html`] (docs/index.html))
+(o código-fonte da página está em [`docs/index.html`](docs/index.html))
 
 [![Série temporal das vítimas](docs/assets/fig1_serie_temporal.png)](https://github.com/Mi-gue-l/letalidade-policial)
 
