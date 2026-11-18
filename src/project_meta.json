@@ -1,0 +1,17 @@
+{
+  "titulo": "Entre patamares e ruído: a série de vítimas de intervenção policial no Município do Rio de Janeiro no 1º quadrimestre, 2003–2022",
+  "titulo_curto": "Vítimas de intervenção policial no Rio, 2003–2022",
+  "autores": [
+    "Miguel Garcia Lopes do Amaral"
+  ],
+  "curso": "Bacharelado em Sistemas de Informação",
+  "instituicao": "Unilasalle RJ",
+  "disciplina": "Linguagem de Programação (Análise e Visualização de Dados com Python)",
+  "semestre": "6º período",
+  "orientador": "Alexandre Neves Louzada",
+  "repo_url": "https://github.com/Mi-gue-l/letalidade-policial-rio",
+  "pages_url": "https://mi-gue-l.github.io/letalidade-policial-rio/",
+  "repo_nome": "letalidade-policial-rio",
+  "versao": "1.0.0",
+  "data_publicacao": "2026-11-18"
+}

@@ -1,0 +1,46 @@
+{
+  "script": "src/etl.py",
+  "arquivo_bruto": "data/raw/tabela_2300_data_rio.xls",
+  "sha256_bruto": "179553629368d5962295634ed9eeb118cb0b1188d6ddf7f02a854182fa7b2d35",
+  "aba": "T 2300",
+  "metadados_fonte": {
+    "titulo": "Tabela 2300 - Vítimas de auto de resistência,  diferenças em relação ao mesmo quadrimestre do ano anterior, taxa por cem mil habitantes e média mensal, segundo o 1ºquadrimestre de cada ano, no Município do Rio de Janeiro entre Janeiro/Abril/2003 e Janeiro/Abril/2022",
+    "fonte": "Fonte: Instituto de Segurança Pública.  Disponível em <http://www.ispdados.rj.gov.br/> acesso em 24/05/2022",
+    "notas": [
+      "1 - Homicídio decorrente de oposição à intervenção policial: utilizado para definir as mortes em confronto, ou seja, para classificar uma situação na qual teria havido resistência à prisão, em flagrante ou em decorrência de cumprimento de mandado judicial,",
+      "2 - Projeção realizada pelo ISP, referente ao último mês do quadrimestre.",
+      "3 - Cálculos e tabulação: IPP, Coordenadoria Técnica de Informações da Cidade."
+    ]
+  },
+  "linhas_lidas_na_aba": 39,
+  "linhas_de_dados": 20,
+  "periodo": [
+    2003,
+    2022
+  ],
+  "regras_aplicadas": [
+    "Linhas de dados identificadas por ano (1900-2100) na 1ª coluna; cabeçalhos e notas descartados da tabela (mas preservados em metadados_fonte).",
+    "Token '..' (Não se aplica dado numérico) convertido em NaN/<NA>; nenhuma imputação.",
+    "Colunas renomeadas para snake_case; sufixo '_publicada' = valor da fonte.",
+    "Tipos: ano=int16, vitimas=int32, dif_abs=Int32 (anulável), demais=float64.",
+    "Métricas recalculadas (*_calc) e comparadas às publicadas; divergências acima da tolerância interrompem o pipeline.",
+    "Índices base 100 (2003=100) criados para comparar escalas distintas num mesmo eixo.",
+    "Nenhuma linha foi removida ou imputada."
+  ],
+  "validacao": {
+    "max_desvio_dif_abs": 0.0,
+    "max_desvio_dif_pct": 0.0,
+    "max_desvio_taxa_100mil": 0.0,
+    "max_desvio_media_mensal": 0.0,
+    "nulos_por_coluna": {
+      "dif_abs_publicada": 1,
+      "dif_pct_publicada": 1,
+      "dif_abs_calc": 1,
+      "dif_pct_calc": 1
+    }
+  },
+  "saidas": {
+    "autos_resistencia_rio_jan_abr.csv.gz": "1b563226258eec338fa0ba2166a433170ba6527d9330facbac1fb55acd257dda",
+    "autos_resistencia_rio_jan_abr.json": "56803e8025f54f85ec0ffed2680e269457aacd60cb82c840f311f724d332c6c9"
+  }
+}

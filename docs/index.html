@@ -1,0 +1,871 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vítimas de intervenção policial no Rio, 2003–2022 — artigo</title>
+<meta name="description" content="Análise exploratória e reprodutível da série de vítimas de intervenção policial no Município do Rio de Janeiro (1º quadrimestre, 2003–2022), com dados abertos do DATA.RIO/ISP-RJ.">
+<meta name="color-scheme" content="light dark">
+<meta name="citation_title" content="Entre patamares e ruído: a série de vítimas de intervenção policial no Município do Rio de Janeiro no 1º quadrimestre, 2003–2022">
+<meta name="citation_author" content="Miguel Garcia Lopes do Amaral">
+<meta name="citation_publication_date" content="2026-11-18">
+<meta name="citation_language" content="pt">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vítimas de intervenção policial no Rio, 2003–2022">
+<meta property="og:description" content="Entre patamares e ruído: três perguntas de pesquisa sobre a série de vítimas de intervenção policial no Rio.">
+<meta property="og:url" content="https://mi-gue-l.github.io/letalidade-policial-rio/">
+<meta property="og:image" content="https://mi-gue-l.github.io/letalidade-policial-rio/assets/fig1_serie_temporal.png">
+<link rel="canonical" href="https://mi-gue-l.github.io/letalidade-policial-rio/">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Dataset",
+ "name": "Vítimas de intervenção policial no Município do Rio de Janeiro, 1º quadrimestre, 2003–2022 (dados tratados)",
+ "description": "Série anual (20 observações) do total de vítimas de oposição à intervenção policial no 1º quadrimestre, população e taxa por 100 mil habitantes, tratada a partir da Tabela 2300 do DATA.RIO (fonte: ISP-RJ).",
+ "url": "https://mi-gue-l.github.io/letalidade-policial-rio/",
+ "keywords": [
+  "segurança pública",
+  "letalidade policial",
+  "Rio de Janeiro",
+  "dados abertos",
+  "FAIR"
+ ],
+ "license": "https://creativecommons.org/licenses/by/4.0/",
+ "isAccessibleForFree": true,
+ "inLanguage": "pt-BR",
+ "temporalCoverage": "2003/2022",
+ "spatialCoverage": "Município do Rio de Janeiro, Brasil",
+ "creator": [
+  {
+   "@type": "Person",
+   "name": "Miguel Garcia Lopes do Amaral"
+  }
+ ],
+ "isBasedOn": "http://www.ispdados.rj.gov.br/",
+ "distribution": [
+  {
+   "@type": "DataDownload",
+   "encodingFormat": "text/csv",
+   "contentUrl": "https://mi-gue-l.github.io/letalidade-policial-rio/assets/dados_tratados.csv"
+  }
+ ]
+}
+</script>
+<style>
+:root{
+  color-scheme: light dark;
+  --bg:#fcfcfb; --surface:#ffffff; --ink:#0b0b0b; --ink2:#46453f; --muted:#6b6a64; --line:#e4e3de; --soft:#f3f2ee;
+  --link:#1c5cab; --c1:#2a78d6; --c1-soft:#9ec5f4; --c2:#eb6834; --c3:#1baf7a; --warn:#fff6e5; --warn-line:#e9c46a;
+  --code-bg:#f5f4f0; --shadow:0 1px 2px rgba(0,0,0,.06),0 4px 16px rgba(0,0,0,.04);
+  --serif: "Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  --sans: system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --mono: ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#141413; --surface:#1a1a19; --ink:#f0efec; --ink2:#c3c2b7; --muted:#9a998f; --line:#2f2f2c; --soft:#222220;
+    --link:#86b6ef; --c1:#3987e5; --c1-soft:#184f95; --c2:#d95926; --c3:#199e70; --warn:#2a2418; --warn-line:#8a6d1f;
+    --code-bg:#1f1f1d; --shadow:none;
+  }
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:1.0625rem/1.65 var(--serif);text-rendering:optimizeLegibility}
+a{color:var(--link);text-underline-offset:.18em}
+a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,[tabindex]:focus-visible{outline:3px solid var(--c1);outline-offset:2px;border-radius:3px}
+.skip{position:absolute;left:-999px;top:0;background:var(--surface);padding:.6rem 1rem;z-index:10}
+.skip:focus{left:8px;top:8px}
+.wrap{max-width:46rem;margin:0 auto;padding:0 1rem}
+.wide{max-width:60rem;margin:0 auto;padding:0 1rem}
+header.top{border-bottom:1px solid var(--line);background:var(--surface);padding:2.2rem 0 1.6rem}
+.kicker{font:600 .78rem/1 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 .9rem}
+h1{font:700 clamp(1.6rem,4.6vw,2.35rem)/1.2 var(--serif);margin:0 0 1.1rem;letter-spacing:-.01em;text-wrap:balance}
+.authors{font:1rem/1.5 var(--sans);color:var(--ink);margin:0 0 .3rem}
+.authors strong{font-weight:600}
+.affil,.advisor{font:.92rem/1.5 var(--sans);color:var(--ink2);margin:0}
+.badges{display:flex;flex-wrap:wrap;gap:.4rem;margin:1.1rem 0 0;padding:0;list-style:none;font:600 .74rem/1 var(--sans)}
+.badges li{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;background:var(--bg)}
+.badges span{padding:.38rem .6rem}
+.badges span:first-child{background:var(--soft);color:var(--ink2)}
+.badges span:last-child{color:var(--ink)}
+.btn{display:inline-flex;align-items:center;gap:.5rem;margin-top:1.1rem;padding:.55rem .95rem;border-radius:8px;background:var(--ink);color:var(--bg);text-decoration:none;font:600 .9rem/1 var(--sans)}
+.btn:hover{opacity:.88}
+.btn.alt{background:transparent;color:var(--ink);border:1px solid var(--line);margin-left:.4rem}
+nav.toc{font:.88rem/1.4 var(--sans);padding:.9rem 0;border-bottom:1px solid var(--line);background:var(--bg);position:sticky;top:0;z-index:5}
+nav.toc ul{display:flex;gap:.3rem 1.1rem;flex-wrap:wrap;margin:0;padding:0;list-style:none}
+nav.toc a{color:var(--ink2);text-decoration:none}
+nav.toc a:hover{color:var(--link);text-decoration:underline}
+main{padding:1.5rem 0 3rem}
+section{margin-top:2.6rem;scroll-margin-top:3.5rem}
+h2{font:700 1.5rem/1.25 var(--serif);margin:0 0 .8rem;padding-top:.4rem;border-top:3px solid var(--ink)}
+h3{font:700 1.15rem/1.3 var(--serif);margin:1.8rem 0 .5rem}
+h4{font:600 .95rem/1.3 var(--sans);margin:1.3rem 0 .3rem;color:var(--ink2);text-transform:uppercase;letter-spacing:.04em}
+p{margin:.8rem 0}
+.abstract{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:1.1rem 1.25rem;margin:1.6rem 0;box-shadow:var(--shadow)}
+.abstract h2{font:700 .8rem/1 var(--sans);letter-spacing:.08em;text-transform:uppercase;border:0;padding:0;margin:0 0 .6rem;color:var(--muted)}
+.abstract p{font-size:.98rem;line-height:1.6;margin:.3rem 0 .6rem;text-align:left;hyphens:auto}
+.keywords{display:flex;flex-wrap:wrap;gap:.35rem;list-style:none;padding:0;margin:.4rem 0 .2rem;font:.82rem/1 var(--sans)}
+.keywords li{background:var(--soft);border-radius:999px;padding:.35rem .65rem}
+.keywords-label{font:600 .8rem/1 var(--sans);color:var(--muted);margin:.5rem 0 0}
+.rq{border-left:4px solid var(--c1);background:var(--surface);padding:.7rem 1rem;margin:.7rem 0;border-radius:0 8px 8px 0}
+.rq b{font-family:var(--sans)}
+.note{background:var(--warn);border:1px solid var(--warn-line);border-radius:8px;padding:.75rem 1rem;font:.94rem/1.55 var(--sans);margin:1.2rem 0}
+figure{margin:1.8rem 0}
+figure img{display:block;width:100%;height:auto;border:1px solid var(--line);border-radius:8px;background:#fcfcfb}
+figcaption{font:.88rem/1.5 var(--sans);color:var(--ink2);margin-top:.55rem}
+figcaption b{color:var(--ink)}
+.tag{display:inline-block;font:600 .68rem/1 var(--sans);letter-spacing:.05em;text-transform:uppercase;border:1px solid var(--line);border-radius:4px;padding:.18rem .4rem;margin-right:.4rem;color:var(--muted);vertical-align:.08em}
+pre{background:var(--code-bg);border:1px solid var(--line);border-radius:8px;padding:.9rem 1rem;overflow:auto;font:.8rem/1.5 var(--mono);margin:1rem 0;tab-size:4;-webkit-overflow-scrolling:touch}
+code{font-family:var(--mono);font-size:.88em;background:var(--code-bg);padding:.08em .3em;border-radius:4px}
+pre code{background:none;padding:0;font-size:inherit}
+.codeblock{position:relative}
+.copy{position:absolute;top:.5rem;right:.5rem;font:600 .72rem/1 var(--sans);padding:.35rem .55rem;border:1px solid var(--line);background:var(--surface);color:var(--ink2);border-radius:6px;cursor:pointer}
+.tablewrap{overflow-x:auto;margin:1.1rem 0;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;font:.88rem/1.4 var(--sans);font-variant-numeric:tabular-nums}
+caption{text-align:left;font:600 .9rem/1.4 var(--sans);padding-bottom:.45rem;color:var(--ink)}
+th,td{padding:.45rem .65rem;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+thead th{border-bottom:2px solid var(--ink);font-weight:600;vertical-align:bottom}
+tbody tr:hover{background:var(--soft)}
+tr.sig td{font-weight:600}
+.tfoot{font:.8rem/1.45 var(--sans);color:var(--muted);margin-top:.3rem}
+details{margin:1rem 0}
+summary{cursor:pointer;font:600 .92rem/1.4 var(--sans);color:var(--ink2)}
+/* ---------- gráficos interativos ---------- */
+.viz{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:.9rem .9rem .6rem;box-shadow:var(--shadow);margin:1.8rem 0}
+.viz h3{margin:.1rem 0 .15rem;font:700 1rem/1.3 var(--sans)}
+.viz .sub{font:.84rem/1.4 var(--sans);color:var(--muted);margin:0 0 .7rem}
+.controls{display:flex;flex-wrap:wrap;gap:.5rem 1rem;align-items:center;font:.86rem/1.2 var(--sans);margin:0 0 .6rem}
+.controls fieldset{border:0;margin:0;padding:0;display:flex;gap:.35rem;flex-wrap:wrap}
+.controls legend{position:absolute;left:-999px}
+.seg label{display:inline-flex}
+.seg input{position:absolute;opacity:0;pointer-events:none}
+.seg span{padding:.42rem .7rem;border:1px solid var(--line);border-radius:999px;cursor:pointer;background:var(--bg);color:var(--ink2)}
+.seg input:checked + span{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.seg input:focus-visible + span{outline:3px solid var(--c1);outline-offset:2px}
+.chk{display:inline-flex;gap:.4rem;align-items:center;cursor:pointer;color:var(--ink2)}
+.chk input{width:1.05rem;height:1.05rem;accent-color:var(--c1)}
+.range{display:flex;align-items:center;gap:.5rem;color:var(--ink2)}
+.range input{width:6.5rem;accent-color:var(--c1)}
+.legend{display:flex;flex-wrap:wrap;gap:.4rem;margin:0 0 .5rem;padding:0;list-style:none}
+.legend button{display:inline-flex;gap:.45rem;align-items:center;font:.84rem/1 var(--sans);border:1px solid var(--line);background:var(--bg);color:var(--ink);padding:.42rem .65rem;border-radius:999px;cursor:pointer}
+.legend button[aria-pressed="false"]{opacity:.45;text-decoration:line-through}
+.legend i{width:.8rem;height:.22rem;border-radius:2px;display:inline-block}
+.chart{position:relative;width:100%}
+.chart svg{display:block;width:100%;height:auto;overflow:visible;touch-action:pan-y}
+.chart text{font:12px var(--sans);fill:var(--ink2)}
+.chart .axis-title{fill:var(--muted);font-size:11.5px}
+.chart .grid{stroke:var(--line);stroke-width:1}
+.chart .base{stroke:var(--muted);stroke-width:1}
+.chart .ln{fill:none;stroke-width:2.25;stroke-linejoin:round;stroke-linecap:round}
+.chart .pt{stroke:var(--surface);stroke-width:2}
+.chart .pt:focus{outline:none;stroke:var(--ink);stroke-width:2.5}
+.chart .s1{stroke:var(--c1);fill:var(--c1)} .chart .s2{stroke:var(--c2);fill:var(--c2)} .chart .s3{stroke:var(--c3);fill:var(--c3)}
+.chart .pt.s1,.chart .pt.s2,.chart .pt.s3{stroke:var(--surface)}
+.chart path.ln{fill:none}
+.chart .reg{stroke:var(--c2);stroke-width:2;stroke-dasharray:6 4;fill:none}
+.chart .trend{stroke:var(--ink2);stroke-width:1.5;stroke-dasharray:2 4;fill:none}
+.chart .brk{stroke:var(--muted);stroke-width:1;stroke-dasharray:2 3}
+.chart .halo{paint-order:stroke;stroke:var(--surface);stroke-width:4px;stroke-linejoin:round}
+.chart .cross{stroke:var(--muted);stroke-width:1}
+.chart .evt{fill:var(--ink2);stroke:var(--surface);stroke-width:1.5;cursor:help}
+.chart .bar{fill:var(--c1-soft)} .chart .bar.sig{fill:var(--c1)}
+.chart .hit{fill:transparent}
+.tip{position:absolute;z-index:3;pointer-events:none;background:var(--ink);color:var(--bg);border-radius:8px;padding:.5rem .65rem;font:.82rem/1.45 var(--sans);box-shadow:0 6px 24px rgba(0,0,0,.25);max-width:15rem;opacity:0;transition:opacity .08s}
+.tip.on{opacity:1}
+.tip b{font-weight:600}
+.tip .dim{opacity:.75}
+.viz noscript{display:block;font:.9rem var(--sans);color:var(--ink2)}
+.hint{font:.8rem/1.4 var(--sans);color:var(--muted);margin:.2rem 0 0}
+/* ---------- misc ---------- */
+.fair{display:grid;gap:.6rem;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));margin:1rem 0}
+.fair div{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:.75rem .9rem;font:.9rem/1.5 var(--sans)}
+.fair h4{margin:.1rem 0 .3rem;color:var(--ink);text-transform:none;letter-spacing:0;font-size:.98rem}
+.fair ul{margin:.2rem 0 0;padding-left:1.1rem}
+.refs{font:.92rem/1.55 var(--sans);padding-left:0;list-style:none}
+.refs li{margin:.55rem 0;padding-left:1.4rem;text-indent:-1.4rem;overflow-wrap:anywhere}
+.cite{background:var(--soft);border-radius:8px;padding:.8rem 1rem;font:.88rem/1.5 var(--sans);margin:1rem 0}
+footer{border-top:1px solid var(--line);padding:1.6rem 0 2.4rem;font:.85rem/1.55 var(--sans);color:var(--ink2);background:var(--surface)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media (max-width:560px){
+  body{font-size:1rem}
+  .btn.alt{margin-left:0}
+  th,td{padding:.4rem .5rem}
+  nav.toc{position:static}
+}
+@media print{
+  nav.toc,.btn,.controls,.legend,.copy,.skip{display:none!important}
+  body{background:#fff;color:#000;font-size:11pt}
+  figure,.viz,pre{break-inside:avoid}
+  a{color:#000}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.tip{transition:none}}
+</style>
+</head>
+<body>
+<a class="skip" href="#conteudo">Ir para o conteúdo</a>
+
+<header class="top">
+  <div class="wrap">
+    <p class="kicker">Artigo científico · Projeto final · Linguagem de Programação (Análise e Visualização de Dados com Python) · 6º período</p>
+    <h1>Entre patamares e ruído: a série de vítimas de intervenção policial no Município do Rio de Janeiro no 1º quadrimestre, 2003–2022</h1>
+    <p class="authors"><strong>Miguel Garcia Lopes do Amaral</strong></p>
+    <p class="affil">Bacharelado em Sistemas de Informação · Unilasalle RJ</p>
+    <p class="advisor"><strong>Professor(a) orientador(a):</strong> Alexandre Neves Louzada</p>
+    <ul class="badges" aria-label="Metadados do projeto">
+      <li><span>código</span><span>MIT</span></li>
+      <li><span>dados e texto</span><span>CC BY 4.0</span></li>
+      <li><span>FAIR</span><span>F · A · I · R</span></li>
+      <li><span>Python</span><span>3.13</span></li>
+      <li><span>versão</span><span>1.0.0</span></li>
+      <li><span>período</span><span>2003–2022</span></li>
+    </ul>
+    <a class="btn" href="https://github.com/Mi-gue-l/letalidade-policial-rio" rel="noopener">
+      <svg width="18" height="18" viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+      Repositório no GitHub</a>
+    <a class="btn alt" href="assets/dados_tratados.csv" download>Baixar dados tratados (CSV)</a>
+  </div>
+</header>
+
+<nav class="toc" aria-label="Sumário">
+  <div class="wrap"><ul>
+    <li><a href="#resumo">Resumo</a></li>
+    <li><a href="#introducao">1 Introdução</a></li>
+    <li><a href="#metodologia">2 Metodologia</a></li>
+    <li><a href="#resultados">3 Resultados</a></li>
+    <li><a href="#conclusao">4 Conclusão</a></li>
+    <li><a href="#fair">5 Dados e FAIR</a></li>
+    <li><a href="#referencias">6 Referências</a></li>
+  </ul></div>
+</nav>
+
+<main id="conteudo">
+<div class="wrap">
+
+<section id="resumo" aria-labelledby="h-resumo">
+  <div class="abstract">
+    <h2 id="h-resumo">Resumo</h2>
+    <p class="abstract-text" lang="pt">Este estudo examina a série oficial de vítimas de oposição à intervenção policial (antes designadas “autos de resistência”) no Município do Rio de Janeiro, no 1º quadrimestre (janeiro–abril) de 2003 a 2022, com base na Tabela 2300 do DATA.RIO e em dados do ISP-RJ. O trabalho constrói um pipeline determinístico em Python (ingestão, validação e métricas derivadas) e conduz uma análise exploratória guiada por três perguntas: se há tendência monotônica ou mudança de patamar; se a normalização pela população altera a leitura da série; e quais variações anuais excedem o acaso. O total passou de 291 para 123 vítimas (−57,7%), mas não há tendência monotônica significativa (τ de Kendall = −0,16; p = 0,33). Há, em vez disso, uma quebra de nível em 2011 (média de 243 para 148; p de permutação = 0,014), seguida de retorno a patamar elevado em 2019–2021 e de novo recuo em 2022. A taxa por 100 mil habitantes cai 63,4%, pois a população cresceu 15,6%, mas preserva o padrão temporal (ρ de Spearman = 0,97). 6 das 19 variações anuais superam o ruído esperado de contagens de Poisson (correção de Bonferroni), embora nenhuma seja atípica pelos critérios de Tukey ou do z modificado. Os resultados descrevem padrões agregados e não permitem inferência causal. Código, dados tratados e dicionário seguem os princípios FAIR.</p>
+    <p class="keywords-label" lang="pt">Palavras-chave</p>
+    <ul class="keywords" lang="pt"><li>letalidade policial</li><li>Rio de Janeiro</li><li>séries temporais</li><li>análise exploratória de dados</li><li>dados abertos</li><li>princípios FAIR</li></ul>
+  </div>
+  <div class="abstract" lang="en">
+    <h2>Abstract</h2>
+    <p class="abstract-text" lang="en">This study analyzes the official series of victims of police intervention (formerly recorded as “resistance followed by death”) in the city of Rio de Janeiro during the first four months of each year from 2003 to 2022, using DATA.RIO Table 2300, which is based on ISP-RJ data. The study builds a deterministic Python pipeline (ingestion, validation and derived metrics) and carries out an exploratory analysis guided by three questions: whether the series shows a monotonic trend or level shifts; whether population normalization changes how the series is read; and which year-over-year changes exceed chance. Victims fell from 291 to 123 (−57,7%), yet no significant monotonic trend emerges (Kendall’s τ = −0,16, p = 0,33). Instead, there is a level break in 2011 (mean from 243 to 148; permutation p = 0,014), followed by a return to a high plateau in 2019–2021 and a new decline in 2022. The rate per 100,000 inhabitants falls 63,4% because the population grew 15,6%, but it preserves the temporal pattern (Spearman’s ρ = 0,97). 6 of 19 annual changes exceed Poisson counting noise (Bonferroni-corrected), although none is atypical by Tukey or modified z-score criteria. The findings describe aggregate patterns and do not support causal inference. Code, processed data and data dictionary follow the FAIR principles.</p>
+    <p class="keywords-label">Keywords</p>
+    <ul class="keywords" lang="en"><li>police lethality</li><li>Rio de Janeiro</li><li>time series</li><li>exploratory data analysis</li><li>open data</li><li>FAIR principles</li></ul>
+  </div>
+</section>
+
+<section id="introducao">
+  <h2>1 Introdução</h2>
+  <p>A letalidade da ação policial é um dos indicadores mais sensíveis de segurança pública e de controle democrático da força. No Rio de Janeiro, mortes decorrentes de confronto com policiais eram classificadas nos registros de ocorrência como “autos de resistência” — expressão que a <a href="https://jus.com.br/artigos/45961/fim-dos-autos-de-resistencia" rel="noopener">Resolução Conjunta nº 2, de 13 de outubro de 2015</a>, determinou substituir por “lesão corporal ou morte decorrentes de oposição à intervenção policial”. A literatura brasileira trata esses registros como indicador de letalidade da ação policial e discute os limites de sua produção e investigação (CANO, 1997; MISSE <em>et al.</em>, 2013).</p>
+  <p>Acompanhar essa série ao longo de duas décadas importa por razões práticas e sociais: ela informa o debate sobre políticas de segurança, serve de linha de base para avaliar mudanças institucionais e permite verificar se a leitura popular de “queda” ou “aumento” resiste a um tratamento estatístico cuidadoso. Este trabalho usa a Tabela 2300 do portal <a href="https://www.data.rio/" rel="noopener">DATA.RIO</a>, que consolida dados do <a href="http://www.ispdados.rj.gov.br/" rel="noopener">Instituto de Segurança Pública (ISP-RJ)</a> para o 1º quadrimestre de cada ano entre 2003 e 2022.</p>
+  <h3>Perguntas de pesquisa</h3>
+  <div class="rq"><b>RQ1.</b> A série apresenta <em>tendência monotônica</em> de queda ou, em vez disso, <em>mudanças de patamar</em> (quebra estrutural)?</div>
+  <div class="rq"><b>RQ2.</b> Normalizar a contagem pela população (taxa por 100 mil habitantes) altera a leitura temporal obtida com números absolutos?</div>
+  <div class="rq"><b>RQ3.</b> Quais variações interanuais são atípicas — inclusive frente ao ruído esperado de uma contagem aleatória — e a volatilidade difere entre regimes?</div>
+  <p>O restante do artigo descreve os dados e o pipeline (seção 2), responde às perguntas com figuras estáticas e interativas (seção 3), sintetiza conclusões e limitações (seção 4) e declara a aderência aos princípios FAIR (seção 5).</p>
+</section>
+
+<section id="metodologia">
+  <h2>2 Metodologia e pipeline de dados</h2>
+  <h3>2.1 Fonte e granularidade</h3>
+  <p>A fonte primária é o ISP-RJ; o recorte municipal foi tabulado pelo Instituto Pereira Passos no DATA.RIO (Tabela 2300), com consulta ao ISP registrada em 24/05/2022. Cada linha corresponde a <strong>um ano</strong> e cobre exclusivamente o <strong>1º quadrimestre (janeiro–abril)</strong>; portanto, todos os anos são comparáveis entre si, mas os valores não representam o ano completo. A unidade espacial é o município, sem desagregação por bairro, área de batalhão ou perfil das vítimas. São 20 observações e sete colunas originais (total, diferença absoluta e percentual, população projetada, taxa por 100 mil e média mensal). O dicionário completo está em <a href="assets/data_dictionary.md"><code>data/data_dictionary.md</code></a>.</p>
+
+  <h3>2.2 Tratamento dos dados</h3>
+  <p>O arquivo bruto (<code>.xls</code>, SHA-256 <code>179553629368d596…</code>) <strong>nunca é alterado</strong>; cada regra de transformação é registrada em <code>etl_log.json</code>. As decisões foram:</p>
+  <ul>
+    <li><strong>Codificação e estrutura:</strong> a planilha tem título, cabeçalho em duas linhas e notas de rodapé. As linhas de dados são localizadas pelo <em>conteúdo</em> (um ano de quatro dígitos na primeira coluna), e não por posição fixa; título, fonte e notas são preservados como metadados.</li>
+    <li><strong>Valores ausentes:</strong> o token <code>..</code> (“não se aplica dado numérico”) aparece apenas na variação de 2003, que não possui ano anterior. É convertido em nulo e <strong>não é imputado</strong>. Nenhuma linha foi descartada.</li>
+    <li><strong>Tipos primitivos:</strong> ano (<code>int16</code>), vítimas (<code>int32</code>), diferença absoluta (<code>Int32</code> anulável) e demais colunas em <code>float64</code>. A população mantém as casas decimais da projeção do ISP.</li>
+    <li><strong>Métricas derivadas:</strong> as métricas publicadas são <em>recalculadas</em> (<code>*_calc</code>) e comparadas às da fonte; qualquer divergência interrompe o pipeline. Criaram-se também índices base 100 (2003 = 100) para colocar vítimas, taxa e população num mesmo eixo, sem recorrer a eixo duplo.</li>
+    <li><strong>Persistência:</strong> CSV comprimido e JSON, gravados de forma <em>determinística</em> (mesmo hash a cada execução).</li>
+  </ul>
+  <p>Resultado da auditoria: a fonte é internamente consistente (desvio máximo entre valores publicados e recalculados igual a 0), e o único nulo é a primeira variação anual.</p>
+
+  <div class="codeblock"><button class="copy" type="button" aria-label="Copiar código">Copiar</button>
+<pre><code class="language-python">def parse_table(sheet: pd.DataFrame) -&gt; pd.DataFrame:
+    &#34;&#34;&#34;Isola as linhas de dados (primeira coluna = ano) e tipa as colunas.
+
+    As linhas de dados são localizadas pelo conteúdo (um ano de 4 dígitos na
+    primeira coluna), e não por posição fixa; assim o parser tolera linhas de
+    cabeçalho/rodapé extras em futuras versões da planilha.
+    &#34;&#34;&#34;
+    def eh_ano(v) -&gt; bool:
+        try:
+            return 1900 &lt;= int(float(v)) &lt;= 2100 and float(v) == int(float(v))
+        except (TypeError, ValueError):
+            return False
+
+    linhas = sheet[sheet[0].map(eh_ano)].copy()
+    if linhas.empty:
+        raise ValueError(&#34;Nenhuma linha de dados encontrada na planilha.&#34;)
+    linhas = linhas.iloc[:, : len(COLUNAS)]
+    linhas.columns = list(COLUNAS.values())
+
+    df = linhas.map(_to_number).reset_index(drop=True)
+    df[&#34;ano&#34;] = df[&#34;ano&#34;].astype(&#34;int16&#34;)
+    df[&#34;vitimas_jan_abr&#34;] = df[&#34;vitimas_jan_abr&#34;].astype(&#34;int32&#34;)
+    # inteiros anuláveis: a 1ª diferença (2003) é &#34;..&#34; na fonte
+    df[&#34;dif_abs_publicada&#34;] = df[&#34;dif_abs_publicada&#34;].astype(&#34;Int32&#34;)
+    for c in (&#34;dif_pct_publicada&#34;, &#34;populacao&#34;, &#34;taxa_100mil_publicada&#34;, &#34;media_mensal_publicada&#34;):
+        df[c] = df[c].astype(&#34;float64&#34;)
+    return df</code></pre></div>
+  <p class="hint">É a função que lê a planilha (<code>parse_table</code>, em <code>src/etl.py</code>): procura as linhas pelo ano, e não pela posição, e transforma o “..” em valor ausente.</p>
+
+  <div class="codeblock"><button class="copy" type="button" aria-label="Copiar código">Copiar</button>
+<pre><code class="language-python">def add_derived_metrics(df: pd.DataFrame) -&gt; pd.DataFrame:
+    &#34;&#34;&#34;Recalcula as métricas a partir das colunas primárias.
+
+    Mantém as colunas ``*_publicada`` intactas e cria ``*_calc`` para permitir
+    auditoria (ver :func:`validate`).
+    &#34;&#34;&#34;
+    out = df.sort_values(&#34;ano&#34;).reset_index(drop=True).copy()
+    out[&#34;dif_abs_calc&#34;] = out[&#34;vitimas_jan_abr&#34;].diff().astype(&#34;Int32&#34;)
+    out[&#34;dif_pct_calc&#34;] = out[&#34;vitimas_jan_abr&#34;].pct_change() * 100
+    out[&#34;taxa_100mil_calc&#34;] = out[&#34;vitimas_jan_abr&#34;] / out[&#34;populacao&#34;] * 1e5
+    out[&#34;media_mensal_calc&#34;] = out[&#34;vitimas_jan_abr&#34;] / MESES_QUADRIMESTRE
+    base = out.loc[0]
+    out[&#34;indice_vitimas_base100&#34;] = out[&#34;vitimas_jan_abr&#34;] / base[&#34;vitimas_jan_abr&#34;] * 100
+    out[&#34;indice_taxa_base100&#34;] = out[&#34;taxa_100mil_calc&#34;] / base[&#34;taxa_100mil_calc&#34;] * 100
+    out[&#34;indice_populacao_base100&#34;] = out[&#34;populacao&#34;] / base[&#34;populacao&#34;] * 100
+    return out</code></pre></div>
+  <p class="hint">Aqui as métricas da fonte são recalculadas do zero, para conferir se batem, e saem também os índices com base 2003 = 100.</p>
+
+  <h3>2.3 Métodos estatísticos</h3>
+  <ul>
+    <li><strong>Descritivas:</strong> média, desvio-padrão, coeficiente de variação, quartis, IQR, desvio absoluto mediano (MAD) e assimetria.</li>
+    <li><strong>RQ1.</strong> Tendência monotônica: τ de Kendall contra o tempo, equivalente ao teste de Mann–Kendall (MANN, 1945; KENDALL, 1975), e inclinação de Theil–Sen com IC 95% (SEN, 1968). Mudança de patamar: ponto de quebra único que minimiza a soma dos quadrados dos resíduos de dois segmentos de média constante, com significância por <em>teste de permutação</em> (GOOD, 2000) — a busca do melhor ponto é <strong>refeita em cada uma das 20.000 permutações</strong> (semente 2022), evitando o viés de escolher o melhor corte e testá-lo como se fosse prévio. Comparações entre regimes: Mann–Whitney (MANN; WHITNEY, 1947), tratadas como <em>exploratórias</em>, pois os regimes foram definidos após inspecionar os dados.</li>
+    <li><strong>RQ2.</strong> Variação acumulada e taxa composta anual (CAGR); decomposição logarítmica Δln(taxa) = Δln(vítimas) − Δln(população); correlação de Spearman entre contagem, taxa e população.</li>
+    <li><strong>RQ3.</strong> Variação percentual anual; cerca de Tukey (1,5 × IQR; TUKEY, 1977); escore z modificado baseado em MAD, com limiar 3,5 (IGLEWICZ; HOAGLIN, 1993); e <em>escore z de Poisson</em>, que compara cada variação ao ruído esperado se a taxa subjacente fosse constante entre dois anos: z = (nₜ − nₜ₋₁)/√(nₜ + nₜ₋₁), com correção de Bonferroni para as 19 comparações.</li>
+  </ul>
+  <div class="codeblock"><button class="copy" type="button" aria-label="Copiar código">Copiar</button>
+<pre><code class="language-python">def poisson_z(df: pd.DataFrame) -&gt; pd.DataFrame:
+    &#34;&#34;&#34;Compara cada variação anual com o ruído esperado de uma contagem de Poisson.
+
+    Sob H0 (taxa constante entre dois anos), Var(n_t − n_{t−1}) = n_t + n_{t−1},
+    logo z = (n_t − n_{t−1}) / √(n_t + n_{t−1}). O valor-p bicaudal recebe
+    correção de Bonferroni (m = nº de comparações).
+    &#34;&#34;&#34;
+    n = df.set_index(&#34;ano&#34;)[Y].astype(float)
+    d = n.diff().dropna()
+    z = d / np.sqrt(n + n.shift(1)).dropna()
+    p = 2 * stats.norm.sf(z.abs())
+    m = len(z)
+    return pd.DataFrame({&#34;z_poisson&#34;: z, &#34;p_bonferroni&#34;: np.minimum(1.0, p * m)})</code></pre></div>
+  <p class="hint">E esta é a conta que compara cada variação anual com o ruído esperado de uma contagem (<code>poisson_z</code>, em <code>src/analysis.py</code>).</p>
+
+  <h3>2.4 Ferramentas e reprodutibilidade</h3>
+  <p>Python 3.13 com pandas (MCKINNEY, 2010), NumPy (HARRIS <em>et al.</em>, 2020), SciPy (VIRTANEN <em>et al.</em>, 2020) e Matplotlib (HUNTER, 2007); versões congeladas em <code>requirements.txt</code>. O pipeline completo roda em poucos segundos e é coberto por testes automatizados (determinismo dos arquivos gerados, detecção de adulteração da fonte e coerência das métricas). Os gráficos interativos desta página são escritos em SVG e JavaScript puro, sem bibliotecas externas, o que garante carregamento rápido e funcionamento offline.</p>
+</section>
+
+<section id="resultados">
+  <h2>3 Resultados e discussão</h2>
+
+  <h3>3.0 Panorama descritivo</h3>
+  <p>No período, somam-se 3.719 vítimas nos 20 quadrimestres, com média de 185,9 (desvio-padrão 72,0; coeficiente de variação 38,7%), mediana de 196,5, mínimo de 77 (em 2013) e máximo de 331 (em 2008). A assimetria é baixa (0,21): a dispersão não vem de uma cauda longa, mas de <em>patamares distintos</em> ao longo do tempo — o que motiva a RQ1.</p>
+  <div class="tablewrap">
+  <table>
+    <caption>Tabela 1 — Estatísticas descritivas da série (n = 20)</caption>
+    <thead><tr><th>Medida</th><th>Vítimas (jan–abr)</th><th>Taxa por 100 mil hab.</th></tr></thead>
+    <tbody>
+    <tr><td>Média</td><td>185,9</td><td>2,93</td></tr>
+    <tr><td>Desvio-padrão</td><td>72,0</td><td>1,19</td></tr>
+    <tr><td>Coef. de variação</td><td>38,7%</td><td>40,8%</td></tr>
+    <tr><td>Mínimo</td><td>77</td><td>1,20</td></tr>
+    <tr><td>1º quartil</td><td>120,0</td><td>1,79</td></tr>
+    <tr><td>Mediana</td><td>196,5</td><td>3,19</td></tr>
+    <tr><td>3º quartil</td><td>227,0</td><td>3,38</td></tr>
+    <tr><td>Máximo</td><td>331</td><td>5,33</td></tr>
+    <tr><td>IQR</td><td>107,0</td><td>1,59</td></tr>
+    <tr><td>MAD</td><td>50,0</td><td>0,83</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>3.1 RQ1 — Tendência monotônica ou mudança de patamar?</h3>
+  <figure id="fig1">
+    <img src="assets/fig1_serie_temporal.png" width="1840" height="1110" loading="eager" decoding="async"
+         alt="Gráfico de linha do total de vítimas no 1º quadrimestre de 2003 a 2022. A série oscila entre 190 e 331 até 2010, cai para entre 77 e 130 em 2011–2016, sobe para 180 em 2017–2018, atinge 230 em 2019 e cai para 123 em 2022. Linhas tracejadas indicam as médias de cada regime: 243, 121 e 200.">
+    <figcaption><b>Figura 1.</b> Vítimas de oposição à intervenção policial no 1º quadrimestre (Município do Rio). Linhas tracejadas: média de cada regime; linha pontilhada vertical: quebra ótima (2011). Marcos de contexto não implicam causalidade. Fonte: ISP-RJ/DATA.RIO (Tabela 2300); elaboração própria.</figcaption>
+  </figure>
+
+  <p>A impressão visual é de queda, mas o teste estatístico não a confirma como <em>tendência monotônica</em>: τ de Kendall = −0,159 (p = 0,330) e inclinação de Theil–Sen de −3,9 vítimas/ano, com IC 95% de [−10,9; +1,9], intervalo que inclui zero. A série cai, mas <em>depois volta a subir</em> — comportamento que um teste monotônico, por construção, não captura.</p>
+  <p>O teste de quebra única aponta 2011 como ponto ótimo: a média passa de 243,4 para 147,7 (−39,3%); dois níveis explicam 44,6% da variância e o p de permutação é 0,014. O ano da quebra permaneceu o mesmo ao excluir 2022 ou 2008 e ao variar o tamanho mínimo dos segmentos (análise de sensibilidade no notebook). Mas o segundo segmento mistura dois comportamentos — a Figura 2 permite explorá-los.</p>
+
+  <div class="viz" id="vizA" aria-labelledby="vizA-t">
+    <h3 id="vizA-t">Figura 2 · Explorador interativo da série <span class="tag">interativa</span></h3>
+    <p class="sub">Alterne a medida, ajuste o intervalo de anos e ligue ou desligue as camadas analíticas. Passe o mouse, toque ou use <kbd>Tab</kbd> nos pontos para ver valores.</p>
+    <div class="controls">
+      <fieldset class="seg"><legend>Medida</legend>
+        <label><input type="radio" name="metricA" value="vitimas" checked><span>Vítimas</span></label>
+        <label><input type="radio" name="metricA" value="taxa"><span>Taxa / 100 mil</span></label>
+        <label><input type="radio" name="metricA" value="media_mensal"><span>Média mensal</span></label>
+      </fieldset>
+      <label class="chk"><input type="checkbox" id="aReg" checked> Médias por regime e quebra</label>
+      <label class="chk"><input type="checkbox" id="aTrend"> Tendência de Theil–Sen</label>
+      <label class="chk"><input type="checkbox" id="aEvt" checked> Marcos de contexto</label>
+    </div>
+    <div class="controls">
+      <label class="range">De <output id="aFromOut">2003</output><input type="range" id="aFrom" min="2003" max="2020" value="2003" aria-label="Ano inicial"></label>
+      <label class="range">Até <output id="aToOut">2022</output><input type="range" id="aTo" min="2005" max="2022" value="2022" aria-label="Ano final"></label>
+    </div>
+    <div class="chart" id="chartA" role="group" aria-label="Gráfico de linha interativo da série anual"></div>
+    <p class="hint" id="aMsg" aria-live="polite"></p>
+    <noscript>Este gráfico requer JavaScript. Os mesmos dados estão na tabela abaixo e na Figura 1.</noscript>
+    <details><summary>Ver dados como tabela</summary>
+      <div class="tablewrap"><table>
+        <caption class="sr">Dados anuais usados nas figuras interativas</caption>
+        <thead><tr><th>Ano</th><th>Vítimas</th><th>Taxa/100 mil</th><th>Média mensal</th><th>Δ% a/a</th></tr></thead>
+        <tbody><tr><td>2003</td><td>291</td><td>4,96</td><td>72,75</td><td>—</td></tr><tr><td>2004</td><td>203</td><td>3,37</td><td>50,75</td><td>−30,2</td></tr><tr><td>2005</td><td>190</td><td>3,13</td><td>47,50</td><td>−6,4</td></tr><tr><td>2006</td><td>205</td><td>3,35</td><td>51,25</td><td>+7,9</td></tr><tr><td>2007</td><td>288</td><td>4,67</td><td>72,00</td><td>+40,5</td></tr><tr><td>2008</td><td>331</td><td>5,33</td><td>82,75</td><td>+14,9</td></tr><tr><td>2009</td><td>227</td><td>3,63</td><td>56,75</td><td>−31,4</td></tr><tr><td>2010</td><td>212</td><td>3,36</td><td>53,00</td><td>−6,6</td></tr><tr><td>2011</td><td>107</td><td>1,68</td><td>26,75</td><td>−49,5</td></tr><tr><td>2012</td><td>94</td><td>1,47</td><td>23,50</td><td>−12,2</td></tr><tr><td>2013</td><td>77</td><td>1,20</td><td>19,25</td><td>−18,1</td></tr><tr><td>2014</td><td>92</td><td>1,43</td><td>23,00</td><td>+19,5</td></tr><tr><td>2015</td><td>130</td><td>2,01</td><td>32,50</td><td>+41,3</td></tr><tr><td>2016</td><td>111</td><td>1,71</td><td>27,75</td><td>−14,6</td></tr><tr><td>2017</td><td>180</td><td>2,76</td><td>45,00</td><td>+62,2</td></tr><tr><td>2018</td><td>180</td><td>2,71</td><td>45,00</td><td>+0,0</td></tr><tr><td>2019</td><td>230</td><td>3,42</td><td>57,50</td><td>+27,8</td></tr><tr><td>2020</td><td>227</td><td>3,36</td><td>56,75</td><td>−1,3</td></tr><tr><td>2021</td><td>221</td><td>3,25</td><td>55,25</td><td>−2,6</td></tr><tr><td>2022</td><td>123</td><td>1,81</td><td>30,75</td><td>−44,3</td></tr></tbody>
+      </table></div>
+    </details>
+  </div>
+
+  <div class="tablewrap">
+  <table>
+    <caption>Tabela 2 — Regimes de nível (definidos <em>a posteriori</em>; exploratório)</caption>
+    <thead><tr><th>Regime</th><th>n</th><th>Média</th><th>Mediana</th><th>Desv.-pad.</th><th>Mín.</th><th>Máx.</th></tr></thead>
+    <tbody>    <tr><td>2003–2010</td><td>8</td><td>243,4</td><td>219,5</td><td>52,3</td><td>190</td><td>331</td></tr>    <tr><td>2011–2018</td><td>8</td><td>121,4</td><td>109,0</td><td>39,4</td><td>77</td><td>180</td></tr>    <tr><td>2019–2022</td><td>4</td><td>200,2</td><td>224,0</td><td>51,6</td><td>123</td><td>230</td></tr>    </tbody>
+  </table></div>
+  <p class="tfoot">Mann–Whitney (bilateral): 2003–2010 × 2011–2018, p &lt; 0,001; 2003–2010 × 2019–2022, p = 0,734; 2011–2018 × 2019–2022, p = 0,033. Como os regimes foram definidos após inspecionar os dados, esses p-valores são otimistas.</p>
+
+  <figure id="fig3">
+    <img src="assets/fig4_distribuicao_regimes.png" width="1750" height="1010" loading="lazy" decoding="async"
+         alt="Gráfico de pontos com a distribuição anual do total de vítimas em três regimes. 2003–2010: mediana 220, de 190 a 331. 2011–2018: mediana 109, de 77 a 180. 2019–2022: mediana 224, de 123 a 230.">
+    <figcaption><b>Figura 3.</b> Distribuição do total anual por regime (cada ponto é um ano; traço = mediana). O regime 2019–2022 tem mediana (224) praticamente igual à de 2003–2010 (220); o ano de 2022 (123) é o ponto fora do grupo.</figcaption>
+  </figure>
+
+  <p><strong>Para a RQ1,</strong> não há tendência monotônica significativa; há <em>três patamares</em>: alto (2003–2010; média 243), baixo (2011–2018; média 121) e novamente alto (2019–2021, com 221 a 230 por quadrimestre), seguido de recuo em 2022. O primeiro e o terceiro regimes não diferem entre si (p = 0,734), enquanto o regime intermediário difere de ambos.</p>
+  <p><strong>Discussão.</strong> Três famílias de hipóteses, todas externas aos dados desta tabela, são frequentemente associadas a mudanças desse tipo: (i) <em>política territorial de segurança</em> — a primeira UPP foi instalada em 2008 e o programa se expandiu nos anos seguintes, período que antecede e acompanha a queda de 2011; (ii) <em>mudanças no registro e na classificação</em> — a Resolução Conjunta nº 2/2015 recomendou trocar a terminologia dos registros, o que pode alterar o modo como as mortes são classificadas sem que o fenômeno mude; e (iii) <em>mudanças institucionais e judiciais</em> — a intervenção federal na segurança pública do estado (Decreto nº 9.288, de 16/02/2018, até 31/12/2018) e a liminar do STF na ADPF 635 (junho de 2020), que restringiu operações policiais em favelas durante a pandemia (CONECTAS, 2020). Note-se que o 1º quadrimestre de 2020 antecede a liminar; apenas 2021 e 2022 poderiam refletir seus efeitos, e 2021 (221) não mostra queda — a de 2022 (123) é compatível com a hipótese, mas não a demonstra. <strong>Nada nestes dados permite atribuir causalidade</strong>: testar essas hipóteses exigiria séries mensais, desagregação territorial e delineamentos quase-experimentais.</p>
+
+  <h3>3.2 RQ2 — Contagem × taxa por 100 mil habitantes</h3>
+  <p>A população do município cresceu de 5,87 milhões (2003) para 6,78 milhões (2022), alta de 15,6% (0,77% ao ano). Em consequência, a taxa por 100 mil habitantes caiu de 4,96 para 1,81 (−63,4%), queda mais intensa que a da contagem (−57,7%). Na escala logarítmica, 14,4% da queda da taxa deve-se unicamente ao crescimento populacional.</p>
+  <figure id="fig4">
+    <img src="assets/fig2_indices_taxa_populacao.png" width="1920" height="1050" loading="lazy" decoding="async"
+         alt="Gráfico de linhas com índices base 2003 igual a 100 para vítimas, taxa por 100 mil habitantes e população. A população sobe de forma suave até 116. Vítimas e taxa seguem trajetórias quase idênticas e terminam em 42 e 37, respectivamente.">
+    <figcaption><b>Figura 4.</b> Vítimas, taxa por 100 mil habitantes e população em um mesmo eixo (índice 2003 = 100). A taxa acompanha a contagem, mas termina mais baixa por causa do crescimento populacional.</figcaption>
+  </figure>
+  <p>Apesar da diferença de magnitude, a <strong>leitura temporal não muda</strong>: o ρ de Spearman entre contagem e taxa é 0,973; pico (2008) e vale (2013) coincidem nas duas medidas; e nenhum ano muda mais que 4 posições no ranking. A população, isoladamente, não explica a série (ρ = −0,26; p = 0,26).</p>
+  <p><strong>Para a RQ2,</strong> a normalização altera a <em>magnitude</em> do declínio em cerca de 5,7 pontos percentuais, mas não o <em>padrão</em> (quebra, retorno e recuo). <strong>Discussão:</strong> a taxa é preferível para comparar o município no tempo e com outras localidades; a contagem continua útil para dimensionar o fenômeno em número de pessoas. Duas ressalvas: a taxa aqui é <em>quadrimestral</em> (não anualizada) e herda a incerteza da projeção populacional do ISP.</p>
+
+  <h3>3.3 RQ3 — Variações atípicas e volatilidade</h3>
+  <p>A variação percentual anual tem mediana de −2,6% e MAD de 17,6 pontos: oscilações de dezenas de pontos percentuais são <em>a regra</em> nesta série. Por isso, nem a cerca de Tukey ([−66,7%; 67,5%]) nem o z modificado (limiar 3,5) sinalizam algum ano como atípico. As maiores quedas foram 2011 (−49,5%), 2022 (−44,3%), 2009 (−31,4%); as maiores altas, 2017 (+62,2%), 2015 (+41,3%), 2007 (+40,5%).</p>
+  <p>Contagens pequenas, porém, flutuam por acaso mesmo com taxa subjacente constante. O teste de Poisson (seção 2.3) pergunta se cada variação excede esse ruído: <strong>6 das 19</strong> transições o excedem após correção de Bonferroni — 2004, 2007, 2009, 2011, 2017, 2022. Explore-as na Figura 5.</p>
+
+  <div class="viz" id="vizC" aria-labelledby="vizC-t">
+    <h3 id="vizC-t">Figura 5 · Variações interanuais e ruído de Poisson <span class="tag">interativa</span></h3>
+    <p class="sub">Barras escuras: variação acima do ruído esperado (Bonferroni, p &lt; 0,05). Barras claras: compatível com flutuação aleatória.</p>
+    <div class="controls">
+      <label class="chk"><input type="checkbox" id="cOnly"> Mostrar apenas as variações acima do ruído</label>
+    </div>
+    <div class="chart" id="chartC" role="group" aria-label="Gráfico de barras das variações percentuais anuais"></div>
+    <noscript>Este gráfico requer JavaScript. Veja a Figura 6 (estática) e a Tabela 3.</noscript>
+  </div>
+
+  <figure id="fig6">
+    <img src="assets/fig3_variacoes_interanuais.png" width="1750" height="1010" loading="lazy" decoding="async"
+         alt="Gráfico de barras das variações percentuais anuais de 2004 a 2022. Destacam-se, acima do ruído de Poisson, as variações de 2004 (−30%), 2007 (+40%), 2009 (−31%), 2011 (−50%), 2017 (+62%) e 2022 (−44%).">
+    <figcaption><b>Figura 6.</b> Versão estática da Figura 5, para impressão e leitura sem JavaScript.</figcaption>
+  </figure>
+
+  <details open><summary>Tabela 3 — Variações anuais, z modificado e z de Poisson</summary>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Ano</th><th>Δ% a/a</th><th>z modificado</th><th>z de Poisson</th><th>p (Bonferroni)</th></tr></thead>
+    <tbody>    <tr class="sig"><td>2004</td><td>−30,2%</td><td>−1,06</td><td>−3,96</td><td>0,001</td></tr>    <tr><td>2005</td><td>−6,4%</td><td>−0,14</td><td>−0,66</td><td>1,000</td></tr>    <tr><td>2006</td><td>+7,9%</td><td>+0,40</td><td>+0,75</td><td>1,000</td></tr>    <tr class="sig"><td>2007</td><td>+40,5%</td><td>+1,66</td><td>+3,74</td><td>0,004</td></tr>    <tr><td>2008</td><td>+14,9%</td><td>+0,67</td><td>+1,73</td><td>1,000</td></tr>    <tr class="sig"><td>2009</td><td>−31,4%</td><td>−1,10</td><td>−4,40</td><td>&lt; 0,001</td></tr>    <tr><td>2010</td><td>−6,6%</td><td>−0,15</td><td>−0,72</td><td>1,000</td></tr>    <tr class="sig"><td>2011</td><td>−49,5%</td><td>−1,80</td><td>−5,88</td><td>&lt; 0,001</td></tr>    <tr><td>2012</td><td>−12,1%</td><td>−0,36</td><td>−0,92</td><td>1,000</td></tr>    <tr><td>2013</td><td>−18,1%</td><td>−0,59</td><td>−1,30</td><td>1,000</td></tr>    <tr><td>2014</td><td>+19,5%</td><td>+0,85</td><td>+1,15</td><td>1,000</td></tr>    <tr><td>2015</td><td>+41,3%</td><td>+1,69</td><td>+2,55</td><td>0,204</td></tr>    <tr><td>2016</td><td>−14,6%</td><td>−0,46</td><td>−1,22</td><td>1,000</td></tr>    <tr class="sig"><td>2017</td><td>+62,2%</td><td>+2,49</td><td>+4,04</td><td>&lt; 0,001</td></tr>    <tr><td>2018</td><td>+0,0%</td><td>+0,10</td><td>+0,00</td><td>1,000</td></tr>    <tr><td>2019</td><td>+27,8%</td><td>+1,17</td><td>+2,47</td><td>0,257</td></tr>    <tr><td>2020</td><td>−1,3%</td><td>+0,05</td><td>−0,14</td><td>1,000</td></tr>    <tr><td>2021</td><td>−2,6%</td><td>+0,00</td><td>−0,28</td><td>1,000</td></tr>    <tr class="sig"><td>2022</td><td>−44,3%</td><td>−1,60</td><td>−5,28</td><td>&lt; 0,001</td></tr>    </tbody>
+  </table></div>
+  <p class="tfoot">Linhas em negrito: acima do ruído de Poisson. Nenhum ano ultrapassa o limiar de 3,5 do z modificado ou a cerca de Tukey.</p>
+  </details>
+
+  <p>Quanto à volatilidade, o valor médio das variações absolutas é de 19,7% em 2003–2010, 27,2% em 2011–2018 e 19,0% em 2019–2022. O regime de nível baixo é o mais volátil em termos <em>relativos</em> — esperado, já que a mesma flutuação absoluta pesa mais sobre uma base menor (e o ruído de Poisson cresce em termos relativos quando a contagem diminui). Como cada regime tem poucas variações (de 4 a 8), não dá para afirmar que a volatilidade difere entre eles.</p>
+  <p><strong>Para a RQ3,</strong> nenhuma variação é atípica em relação à própria distribuição da série; 6 das 19 superam o ruído esperado de uma contagem de Poisson, e as duas maiores quedas coincidem com a transição entre regimes (2011) e com o recuo mais recente (2022). <strong>Discussão:</strong> para uso em políticas públicas, isso indica cautela em ler como “tendência” qualquer variação de um único ano: com contagens desta ordem, oscilações de ±10% a ±20% são compatíveis com o acaso, e apenas mudanças maiores merecem investigação.</p>
+
+  <h3>3.4 Visão integrada</h3>
+  <div class="viz" id="vizB" aria-labelledby="vizB-t">
+    <h3 id="vizB-t">Figura 7 · Vítimas, taxa e população (índice 2003 = 100) <span class="tag">interativa</span></h3>
+    <p class="sub">Um único eixo: o índice permite comparar grandezas de escalas diferentes. Use os botões para ocultar séries.</p>
+    <ul class="legend" id="legendB"></ul>
+    <div class="chart" id="chartB" role="group" aria-label="Gráfico de linhas dos índices base 100"></div>
+    <noscript>Este gráfico requer JavaScript. Veja a Figura 4 (estática).</noscript>
+  </div>
+</section>
+
+<section id="conclusao">
+  <h2>4 Conclusão</h2>
+  <p>A série de vítimas de oposição à intervenção policial no 1º quadrimestre, no Município do Rio de Janeiro, <strong>não segue uma tendência linear de queda</strong> entre 2003 e 2022: organiza-se em três patamares — alto, baixo a partir de 2011 e novamente alto em 2019–2021 — com recuo em 2022. A normalização pela população aprofunda a queda aparente (−63,4% contra −57,7%), mas preserva o padrão. Variações grandes são comuns, e 6 das 19 excedem o ruído esperado de contagem.</p>
+  <h3>Limitações</h3>
+  <ul>
+    <li><strong>Amostra pequena</strong> (n = 20): baixo poder estatístico; os regimes de três trechos foram definidos <em>a posteriori</em>.</li>
+    <li><strong>Apenas o 1º quadrimestre:</strong> sem extrapolação para o ano e sem sazonalidade.</li>
+    <li><strong>Agregado municipal:</strong> sem local, perfil das vítimas, corporação ou circunstância das ocorrências.</li>
+    <li><strong>Natureza dos registros:</strong> a classificação policial é provisória e pode mudar na investigação, na denúncia ou na sentença; há risco de subnotificação e de mudanças de procedimento ao longo do tempo (inclusive a troca de terminologia em 2015).</li>
+    <li><strong>Sem inferência causal:</strong> marcos de contexto são apresentados como referência temporal, não como explicação testada.</li>
+    <li><strong>Dados de 2022</strong> refletem a consulta de 24/05/2022 e podem ter sido revisados pela fonte.</li>
+  </ul>
+  <h3>Trabalhos futuros</h3>
+  <ul>
+    <li>Séries <strong>mensais</strong> e anuais completas do ISP-RJ, com modelos de contagem (Poisson/binomial negativa) e análise de quebras múltiplas.</li>
+    <li><strong>Desagregação espacial</strong> (bairros, áreas de batalhão) e por perfil das vítimas, para testar hipóteses territoriais e institucionais.</li>
+    <li>Análise de <strong>séries interrompidas</strong> em torno de marcos (2008, 2015, 2018, 2020), com grupos de comparação.</li>
+    <li>Cruzamento com <strong>exposição ao risco</strong> (nº de operações, efetivo), caso haja dados públicos.</li>
+  </ul>
+</section>
+
+<section id="fair">
+  <h2>5 Disponibilidade dos dados e declaração FAIR</h2>
+  <p>Todo o material está no repositório <a href="https://github.com/Mi-gue-l/letalidade-policial-rio" rel="noopener">github.com/Mi-gue-l/letalidade-policial-rio</a>, em acesso público e sem credenciais. A tabela a seguir resume a aderência aos princípios FAIR (WILKINSON <em>et al.</em>, 2016).</p>
+  <div class="fair">
+    <div><h4>Findable</h4><ul>
+      <li><code>README.md</code> com resumo, palavras-chave e link para a fonte original</li>
+      <li>Autoria, disciplina, semestre e instituição no cabeçalho</li>
+      <li><code>CITATION.cff</code> e metadados <em>schema.org/Dataset</em> nesta página</li></ul></div>
+    <div><h4>Accessible</h4><ul>
+      <li>Repositório público; ingestão sem autenticação</li>
+      <li>Artigo servido por GitHub Pages, sem dependências externas, layout responsivo</li></ul></div>
+    <div><h4>Interoperable</h4><ul>
+      <li><a href="assets/data_dictionary.md"><code>data/data_dictionary.md</code></a> com todas as variáveis</li>
+      <li>Dados em <code>.csv.gz</code> e <code>.json</code> (formatos abertos)</li></ul></div>
+    <div><h4>Reusable</h4><ul>
+      <li>Licenças: MIT (código) e CC BY 4.0 (dados e texto)</li>
+      <li><code>requirements.txt</code> com versões congeladas; testes automatizados</li>
+      <li><code>etl_log.json</code> com hashes e regras aplicadas</li></ul></div>
+  </div>
+  <h3>Reproduzir o pipeline completo</h3>
+  <div class="codeblock"><button class="copy" type="button" aria-label="Copiar comandos">Copiar</button>
+<pre><code class="language-bash">git clone https://github.com/Mi-gue-l/letalidade-policial-rio.git
+cd letalidade-policial-rio
+python -m venv .venv &amp;&amp; source .venv/bin/activate      # Windows: .venv\Scripts\activate
+pip install -r requirements.txt
+
+python -m src.etl              # limpa os dados brutos
+python -m src.analysis         # calcula as métricas
+python -m src.figures          # gera as figuras
+python -m src.build_article    # monta este artigo</code></pre></div>
+  <p>O notebook <code>notebooks/analise_exploratoria.ipynb</code> traz a exploração completa, com saídas já executadas. Para reexecutá-lo: <code>jupyter nbconvert --to notebook --execute --inplace notebooks/analise_exploratoria.ipynb</code> (requer JupyterLab) ou <code>python -m src.notebook_tools notebooks/analise_exploratoria.ipynb</code> (sem Jupyter).</p>
+  <div class="cite"><strong>Como citar:</strong> Miguel Garcia Lopes do Amaral (2026). <em>Entre patamares e ruído: a série de vítimas de intervenção policial no Município do Rio de Janeiro no 1º quadrimestre, 2003–2022</em>. Unilasalle RJ, 2026. Disponível em: https://mi-gue-l.github.io/letalidade-policial-rio/.</div>
+</section>
+
+<section id="referencias">
+  <h2>6 Referências</h2>
+  <ul class="refs">
+    <li>CANO, I. <strong>Letalidade da ação policial no Rio de Janeiro</strong>. Rio de Janeiro: ISER, 1997.</li>
+    <li>CONECTAS DIREITOS HUMANOS. STF upholds suspension of police operations in Rio de Janeiro favelas during the pandemic. 2020. Disponível em: <a href="https://conectas.org/en/news/stf-upholds-suspension-of-police-operations-in-rio-de-janeiro-favelas-during-the-pandemic" rel="noopener">conectas.org</a>.</li>
+    <li>BRASIL. <strong>Decreto nº 9.288, de 16 de fevereiro de 2018</strong>. Decreta intervenção federal no Estado do Rio de Janeiro com o objetivo de pôr termo a grave comprometimento da ordem pública. Disponível em: <a href="https://planalto.gov.br/ccivil_03/_ato2015-2018/2018/Decreto/D9288.htm" rel="noopener">planalto.gov.br</a>.</li>
+    <li>DATA.RIO. Instituto Pereira Passos. <strong>Tabela 2300 — Vítimas de auto de resistência, diferenças em relação ao mesmo quadrimestre do ano anterior, taxa por cem mil habitantes e média mensal, segundo o 1º quadrimestre de cada ano, no Município do Rio de Janeiro entre Janeiro/Abril/2003 e Janeiro/Abril/2022</strong>. Rio de Janeiro: IPP, 2022. Disponível em: <a href="https://www.data.rio/" rel="noopener">data.rio</a>.</li>
+    <li>GOOD, P. <strong>Permutation tests</strong>: a practical guide to resampling methods for testing hypotheses. 2. ed. New York: Springer, 2000.</li>
+    <li>HARRIS, C. R. <em>et al.</em> Array programming with NumPy. <strong>Nature</strong>, v. 585, p. 357–362, 2020.</li>
+    <li>HUNTER, J. D. Matplotlib: a 2D graphics environment. <strong>Computing in Science &amp; Engineering</strong>, v. 9, n. 3, p. 90–95, 2007.</li>
+    <li>IGLEWICZ, B.; HOAGLIN, D. C. <strong>How to detect and handle outliers</strong>. Milwaukee: ASQC Quality Press, 1993.</li>
+    <li>INSTITUTO DE SEGURANÇA PÚBLICA (ISP-RJ). <strong>ISPDados</strong>. Disponível em: <a href="http://www.ispdados.rj.gov.br/" rel="noopener">ispdados.rj.gov.br</a>. Dados consultados pelo IPP em 24/05/2022.</li>
+    <li>KENDALL, M. G. <strong>Rank correlation methods</strong>. 4. ed. London: Griffin, 1975.</li>
+    <li>MANN, H. B. Nonparametric tests against trend. <strong>Econometrica</strong>, v. 13, n. 3, p. 245–259, 1945.</li>
+    <li>MANN, H. B.; WHITNEY, D. R. On a test of whether one of two random variables is stochastically larger than the other. <strong>Annals of Mathematical Statistics</strong>, v. 18, n. 1, p. 50–60, 1947.</li>
+    <li>MCKINNEY, W. Data structures for statistical computing in Python. In: PYTHON IN SCIENCE CONFERENCE, 9., 2010. <strong>Proceedings</strong>… p. 56–61.</li>
+    <li>MISSE, M. (coord.). <strong>Quando a polícia mata</strong>: homicídios por “autos de resistência” no Rio de Janeiro (2001–2011). Rio de Janeiro: Booklink; NECVU/UFRJ, 2013.</li>
+    <li>RESOLUÇÃO CONJUNTA nº 2, de 13 de outubro de 2015. Dispõe sobre a substituição das designações “auto de resistência” e “resistência seguida de morte”. Ver: <a href="https://jus.com.br/artigos/45961/fim-dos-autos-de-resistencia" rel="noopener">jus.com.br/artigos/45961</a>.</li>
+    <li>SEN, P. K. Estimates of the regression coefficient based on Kendall’s tau. <strong>Journal of the American Statistical Association</strong>, v. 63, n. 324, p. 1379–1389, 1968.</li>
+    <li>TUKEY, J. W. <strong>Exploratory data analysis</strong>. Reading: Addison-Wesley, 1977.</li>
+    <li>VIRTANEN, P. <em>et al.</em> SciPy 1.0: fundamental algorithms for scientific computing in Python. <strong>Nature Methods</strong>, v. 17, p. 261–272, 2020.</li>
+    <li>WIKIPEDIA. Pacifying Police Unit. Disponível em: <a href="https://en.wikipedia.org/wiki/Pacifying_Police_Unit" rel="noopener">en.wikipedia.org/wiki/Pacifying_Police_Unit</a> (referência de contexto sobre a 1ª UPP, 2008).</li>
+    <li>WILKINSON, M. D. <em>et al.</em> The FAIR Guiding Principles for scientific data management and stewardship. <strong>Scientific Data</strong>, v. 3, 160018, 2016.</li>
+  </ul>
+</section>
+
+</div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><strong>Vítimas de intervenção policial no Rio, 2003–2022</strong> · versão 1.0.0 · Linguagem de Programação (Análise e Visualização de Dados com Python), 6º período, Unilasalle RJ.</p>
+    <p>Código sob licença <a href="https://github.com/Mi-gue-l/letalidade-policial-rio/blob/main/LICENSE" rel="noopener">MIT</a>; dados tratados, figuras e texto sob <a href="https://creativecommons.org/licenses/by/4.0/deed.pt-br" rel="noopener">CC BY 4.0</a>. Dados originais: ISP-RJ/DATA.RIO.</p>
+  </div>
+</footer>
+
+<script id="dados" type="application/json">{"registros":[{"ano":2003,"vitimas":291,"taxa":4.961,"media_mensal":72.75,"populacao":5865737,"var_pct":null,"z_poisson":null,"p_bonf":null,"acima_ruido":false,"idx_vitimas":100.0,"idx_taxa":100.0,"idx_pop":100.0},{"ano":2004,"vitimas":203,"taxa":3.368,"media_mensal":50.75,"populacao":6027371,"var_pct":-30.241,"z_poisson":-3.959,"p_bonf":0.00143,"acima_ruido":true,"idx_vitimas":69.759,"idx_taxa":67.889,"idx_pop":102.756},{"ano":2005,"vitimas":190,"taxa":3.1284,"media_mensal":47.5,"populacao":6073353,"var_pct":-6.404,"z_poisson":-0.656,"p_bonf":1.0,"acima_ruido":false,"idx_vitimas":65.292,"idx_taxa":63.06,"idx_pop":103.539},{"ano":2006,"vitimas":205,"taxa":3.3498,"media_mensal":51.25,"populacao":6119685,"var_pct":7.895,"z_poisson":0.755,"p_bonf":1.0,"acima_ruido":false,"idx_vitimas":70.447,"idx_taxa":67.523,"idx_pop":104.329},{"ano":2007,"vitimas":288,"taxa":4.6705,"media_mensal":72.0,"populacao":6166370,"var_pct":40.488,"z_poisson":3.738,"p_bonf":0.00352,"acima_ruido":true,"idx_vitimas":98.969,"idx_taxa":94.144,"idx_pop":105.125},{"ano":2008,"vitimas":331,"taxa":5.3272,"media_mensal":82.75,"populacao":6213412,"var_pct":14.931,"z_poisson":1.728,"p_bonf":1.0,"acima_ruido":false,"idx_vitimas":113.746,"idx_taxa":107.381,"idx_pop":105.927},{"ano":2009,"vitimas":227,"taxa":3.6257,"media_mensal":56.75,"populacao":6260812,"var_pct":-31.42,"z_poisson":-4.403,"p_bonf":0.0002,"acima_ruido":true,"idx_vitimas":78.007,"idx_taxa":73.084,"idx_pop":106.735},{"ano":2010,"vitimas":212,"taxa":3.362,"media_mensal":53.0,"populacao":6305800,"var_pct":-6.608,"z_poisson":-0.716,"p_bonf":1.0,"acima_ruido":false,"idx_vitimas":72.852,"idx_taxa":67.768,"idx_pop":107.502},{"ano":2011,"vitimas":107,"taxa":1.6843,"media_mensal":26.75,"populacao":6352662,"var_pct":-49.528,"z_poisson":-5.879,"p_bonf":0.0,"acima_ruido":true,"idx_vitimas":36.77,"idx_taxa":33.951,"idx_pop":108.301},{"ano":2012,"vitimas":94,"taxa":1.4729,"media_mensal":23.5,"populacao":6381751,"var_pct":-12.15,"z_poisson":-0.917,"p_bonf":1.0,"acima_ruido":false,"idx_vitimas":32.302,"idx_taxa":29.691,"idx_pop":108.797},{"ano":2013,"vitimas":77,"taxa":1.1994,"media_mensal":19.25,"populacao":6420076,"var_pct":-18.085,"z_poisson":-1.3,"p_bonf":1.0,"acima_ruido":false,"idx_vitimas":26.46,"idx_taxa":24.176,"idx_pop":109.45},{"ano":2014,"vitimas":92,"taxa":1.4269,"media_mensal":23.0,"populacao":6447764,"var_pct":19.481,"z_poisson":1.154,"p_bonf":1.0,"acima_ruido":false,"idx_vitimas":31.615,"idx_taxa":28.761,"idx_pop":109.922},{"ano":2015,"vitimas":130,"taxa":2.009,"media_mensal":32.5,"populacao":6470914,"var_pct":41.304,"z_poisson":2.55,"p_bonf":0.20444,"acima_ruido":false,"idx_vitimas":44.674,"idx_taxa":40.496,"idx_pop":110.317},{"ano":2016,"vitimas":111,"taxa":1.7095,"media_mensal":27.75,"populacao":6493305,"var_pct":-14.615,"z_poisson":-1.224,"p_bonf":1.0,"acima_ruido":false,"idx_vitimas":38.144,"idx_taxa":34.458,"idx_pop":110.699},{"ano":2017,"vitimas":180,"taxa":2.7641,"media_mensal":45.0,"populacao":6512178,"var_pct":62.162,"z_poisson":4.045,"p_bonf":0.00099,"acima_ruido":true,"idx_vitimas":61.856,"idx_taxa":55.715,"idx_pop":111.021},{"ano":2018,"vitimas":180,"taxa":2.7071,"media_mensal":45.0,"populacao":6649257,"var_pct":0.0,"z_poisson":0.0,"p_bonf":1.0,"acima_ruido":false,"idx_vitimas":61.856,"idx_taxa":54.567,"idx_pop":113.358},{"ano":2019,"vitimas":230,"taxa":3.4211,"media_mensal":57.5,"populacao":6722961,"var_pct":27.778,"z_poisson":2.469,"p_bonf":0.2572,"acima_ruido":false,"idx_vitimas":79.038,"idx_taxa":68.96,"idx_pop":114.614},{"ano":2020,"vitimas":227,"taxa":3.3566,"media_mensal":56.75,"populacao":6762811,"var_pct":-1.304,"z_poisson":-0.14,"p_bonf":1.0,"acima_ruido":false,"idx_vitimas":78.007,"idx_taxa":67.659,"idx_pop":115.293},{"ano":2021,"vitimas":221,"taxa":3.2488,"media_mensal":55.25,"populacao":6802576,"var_pct":-2.643,"z_poisson":-0.283,"p_bonf":1.0,"acima_ruido":false,"idx_vitimas":75.945,"idx_taxa":65.486,"idx_pop":115.971},{"ano":2022,"vitimas":123,"taxa":1.8136,"media_mensal":30.75,"populacao":6782155,"var_pct":-44.344,"z_poisson":-5.284,"p_bonf":0.0,"acima_ruido":true,"idx_vitimas":42.268,"idx_taxa":36.557,"idx_pop":115.623}],"regimes":[{"nome":"2003–2010","a":2003,"b":2010},{"nome":"2011–2018","a":2011,"b":2018},{"nome":"2019–2022","a":2019,"b":2022}],"eventos":[{"x":2008.9,"rotulo":"1ª UPP","texto":"Instalação da primeira Unidade de Polícia Pacificadora (Santa Marta), 2008."},{"x":2015.8,"rotulo":"Res. Conjunta 2/2015","texto":"Resolução Conjunta nº 2, de 13/10/2015: substitui “auto de resistência” por “oposição à intervenção policial”."},{"x":2018.5,"rotulo":"Interv. federal","texto":"Intervenção federal na segurança pública do RJ (Decreto 9.288, de 16/02/2018; até 31/12/2018)."},{"x":2020.4,"rotulo":"ADPF 635","texto":"Liminar na ADPF 635 (jun/2020) restringe operações policiais em favelas durante a pandemia."}],"quebra":2011}</script>
+<script>
+(function(){
+'use strict';
+var D = JSON.parse(document.getElementById('dados').textContent);
+var R = D.registros, NS = 'http://www.w3.org/2000/svg';
+function fmt(x, c){ return x.toLocaleString('pt-BR', {minimumFractionDigits:c||0, maximumFractionDigits:c||0}); }
+function sgn(x, c){ return (x>0?'+':'') + fmt(x, c).replace('-', '−'); }
+function $(id){ return document.getElementById(id); }
+function el(tag, attrs, parent){
+  var e = document.createElementNS(NS, tag);
+  for (var k in attrs) if (attrs.hasOwnProperty(k)) e.setAttribute(k, attrs[k]);
+  if (parent) parent.appendChild(e);
+  return e;
+}
+function niceStep(range, n){
+  var raw = range / n, p = Math.pow(10, Math.floor(Math.log10(raw))), f = raw / p;
+  return (f <= 1 ? 1 : f <= 2 ? 2 : f <= 2.5 ? 2.5 : f <= 5 ? 5 : 10) * p;
+}
+function ticks(lo, hi, n){
+  var s = niceStep(hi - lo, n), out = [], t = Math.ceil(lo / s - 1e-9) * s;
+  for (; t <= hi + 1e-9; t += s) out.push(Math.round(t * 1e6) / 1e6);
+  return {vals: out, step: s};
+}
+function median(a){ var b = a.slice().sort(function(x,y){return x-y;}), n = b.length; return n % 2 ? b[(n-1)/2] : (b[n/2-1] + b[n/2]) / 2; }
+function theilSen(xs, ys){
+  var sl = [];
+  for (var i = 0; i < xs.length; i++) for (var j = i + 1; j < xs.length; j++) sl.push((ys[j]-ys[i]) / (xs[j]-xs[i]));
+  var b = median(sl); return {b: b, a: median(ys) - b * median(xs)};
+}
+function Tip(wrap){
+  var t = document.createElement('div'); t.className = 'tip'; t.setAttribute('role', 'status'); wrap.appendChild(t);
+  return {
+    show: function(html, x, y){
+      t.innerHTML = html; t.classList.add('on');
+      var w = wrap.clientWidth, tw = t.offsetWidth, th = t.offsetHeight;
+      var left = Math.min(Math.max(x + 12, 4), w - tw - 4);
+      var top = y - th - 12; if (top < 0) top = y + 16;
+      t.style.left = left + 'px'; t.style.top = top + 'px';
+    },
+    hide: function(){ t.classList.remove('on'); }
+  };
+}
+function setup(wrap, draw){
+  var last = 0;
+  function go(){ var w = Math.max(wrap.clientWidth, 300); if (w !== last){ last = w; } draw(w); }
+  if (window.ResizeObserver){ new ResizeObserver(function(){ if (Math.abs(wrap.clientWidth - last) > 1) go(); }).observe(wrap); }
+  else window.addEventListener('resize', go);
+  go();
+  return go;
+}
+
+/* ---------------- Figura 2: explorador ---------------- */
+(function(){
+  var wrap = $('chartA'); if (!wrap) return;
+  var S = {metric:'vitimas', reg:true, trend:false, evt:true, from:2003, to:2022};
+  var M = {vitimas:{lab:'Vítimas (nº)', dec:0, nome:'Vítimas'}, taxa:{lab:'Taxa por 100 mil hab.', dec:2, nome:'Taxa por 100 mil hab.'}, media_mensal:{lab:'Média mensal (vítimas/mês)', dec:1, nome:'Média mensal'}};
+  var tip = Tip(wrap), svg;
+  function draw(W){
+    if (svg) wrap.removeChild(svg);
+    var narrow = W < 520, H = Math.round(Math.max(270, Math.min(W * 0.56, 420)));
+    var m = {l: narrow ? 40 : 52, r: 14, t: 14, b: 44};
+    var key = S.metric, mm = M[key];
+    var data = R.filter(function(r){ return r.ano >= S.from && r.ano <= S.to; });
+    var vals = data.map(function(r){ return r[key]; });
+    var ymax = Math.max.apply(null, vals) * 1.12, yt = ticks(0, ymax, narrow ? 4 : 5);
+    ymax = yt.vals[yt.vals.length - 1] >= ymax ? yt.vals[yt.vals.length - 1] : yt.vals[yt.vals.length - 1] + yt.step;
+    var x0 = S.from - 0.5, x1 = S.to + 0.5;
+    function X(v){ return m.l + (v - x0) / (x1 - x0) * (W - m.l - m.r); }
+    function Y(v){ return H - m.b - v / ymax * (H - m.t - m.b); }
+    svg = el('svg', {viewBox:'0 0 ' + W + ' ' + H, width:W, height:H, role:'img', 'aria-label':'Série anual de ' + mm.nome.toLowerCase() + ', ' + S.from + ' a ' + S.to});
+    wrap.insertBefore(svg, wrap.firstChild);
+    var t, i;
+    for (t = 0; t <= ymax + 1e-9; t += yt.step){
+      el('line', {x1:m.l, x2:W - m.r, y1:Y(t), y2:Y(t), 'class': t === 0 ? 'base' : 'grid'}, svg);
+      el('text', {x:m.l - 8, y:Y(t) + 4, 'text-anchor':'end'}, svg).textContent = fmt(t, yt.step < 1 ? 1 : 0);
+    }
+    var step = Math.max(1, Math.ceil(36 / ((W - m.l - m.r) / (x1 - x0))));
+    data.forEach(function(r){ if ((r.ano - S.from) % step === 0 || r.ano === S.to && step === 1){
+      el('text', {x:X(r.ano), y:H - m.b + 18, 'text-anchor':'middle'}, svg).textContent = r.ano; }});
+    el('text', {x:m.l, y:H - 4, 'class':'axis-title'}, svg).textContent = mm.lab + ' · 1º quadrimestre (jan–abr)';
+    // quebra + regimes
+    if (S.reg){
+      var q = D.quebra - 0.5;
+      if (q > x0 && q < x1){
+        el('line', {x1:X(q), x2:X(q), y1:m.t, y2:H - m.b, 'class':'brk'}, svg);
+        el('text', {x:X(q) + 4, y:m.t + 10, 'class':'halo'}, svg).textContent = 'quebra ótima: ' + D.quebra;
+      }
+      D.regimes.forEach(function(g){
+        var d = data.filter(function(r){ return r.ano >= g.a && r.ano <= g.b; });
+        if (!d.length) return;
+        var mu = d.reduce(function(s, r){ return s + r[key]; }, 0) / d.length;
+        var xa = X(d[0].ano - 0.4), xb = X(d[d.length - 1].ano + 0.4);
+        el('line', {x1:xa, x2:xb, y1:Y(mu), y2:Y(mu), 'class':'reg'}, svg);
+        if (xb - xa > 46) el('text', {x:xa + 3, y:Y(mu) - 6, 'class':'halo'}, svg).textContent = 'média ' + fmt(mu, mm.dec);
+      });
+    }
+    // tendência
+    if (S.trend && data.length >= 3){
+      var ts = theilSen(data.map(function(r){return r.ano;}), vals);
+      var ya = ts.a + ts.b * x0, yb = ts.a + ts.b * x1;
+      el('line', {x1:X(x0), y1:Y(Math.max(ya, 0)), x2:X(x1), y2:Y(Math.max(yb, 0)), 'class':'trend'}, svg);
+      el('text', {x:W - m.r - 4, y:Y(Math.max(yb, 0)) - 8, 'text-anchor':'end', 'class':'halo'}, svg).textContent = 'Theil–Sen: ' + sgn(ts.b, mm.dec === 0 ? 1 : mm.dec + 1) + '/ano';
+    }
+    // linha e pontos
+    var d = data.map(function(r, k){ return (k ? 'L' : 'M') + X(r.ano).toFixed(1) + ',' + Y(r[key]).toFixed(1); }).join('');
+    el('path', {d:d, 'class':'ln s1'}, svg);
+    var cross = el('line', {y1:m.t, y2:H - m.b, 'class':'cross', visibility:'hidden'}, svg);
+    var pts = data.map(function(r){
+      var c = el('circle', {cx:X(r.ano), cy:Y(r[key]), r:4.5, 'class':'pt s1', tabindex:0, role:'img',
+        'aria-label': r.ano + ': ' + fmt(r[key], mm.dec) + ' (' + mm.nome + ')'}, svg);
+      return c;
+    });
+    function showAt(i){
+      var r = data[i], cx = X(r.ano);
+      cross.setAttribute('x1', cx); cross.setAttribute('x2', cx); cross.setAttribute('visibility', 'visible');
+      pts.forEach(function(p, k){ p.setAttribute('r', k === i ? 6.5 : 4.5); });
+      var v = r.var_pct == null ? '' : '<br><span class="dim">vs ano anterior:</span> ' + sgn(r.var_pct, 1) + '%';
+      tip.show('<b>' + r.ano + '</b><br>' + mm.nome + ': <b>' + fmt(r[key], mm.dec) + '</b>' + v, cx, Y(r[key]));
+    }
+    function hideAll(){ cross.setAttribute('visibility', 'hidden'); pts.forEach(function(p){ p.setAttribute('r', 4.5); }); tip.hide(); }
+    var bw = (W - m.l - m.r) / (x1 - x0);
+    data.forEach(function(r, i){
+      var h = el('rect', {x:X(r.ano) - bw / 2, y:m.t, width:bw, height:H - m.t - m.b, 'class':'hit'}, svg);
+      h.addEventListener('pointerenter', function(){ showAt(i); });
+      h.addEventListener('pointermove', function(){ showAt(i); });
+      pts[i].addEventListener('focus', function(){ showAt(i); });
+      pts[i].addEventListener('blur', hideAll);
+    });
+    svg.addEventListener('pointerleave', hideAll);
+    // marcos
+    if (S.evt) D.eventos.forEach(function(ev){
+      if (ev.x < x0 || ev.x > x1) return;
+      var ex = X(ev.x), ey = H - m.b;
+      var g = el('path', {d:'M' + (ex - 6) + ',' + (ey + 0) + ' L' + (ex + 6) + ',' + ey + ' L' + ex + ',' + (ey - 11) + 'Z', 'class':'evt', tabindex:0, role:'img', 'aria-label':'Marco: ' + ev.rotulo + '. ' + ev.texto}, svg);
+      function on(){ tip.show('<b>' + ev.rotulo + '</b><br><span class="dim">' + ev.texto + '</span>', ex, ey - 12); }
+      g.addEventListener('pointerenter', on); g.addEventListener('focus', on);
+      g.addEventListener('pointerleave', hideAll); g.addEventListener('blur', hideAll);
+    });
+  }
+  var go = setup(wrap, draw);
+  function sync(){ go(); }
+  Array.prototype.forEach.call(document.getElementsByName('metricA'), function(r){ r.addEventListener('change', function(){ S.metric = r.value; sync(); }); });
+  $('aReg').addEventListener('change', function(e){ S.reg = e.target.checked; sync(); });
+  $('aTrend').addEventListener('change', function(e){ S.trend = e.target.checked; sync(); });
+  $('aEvt').addEventListener('change', function(e){ S.evt = e.target.checked; sync(); });
+  function range(){
+    var f = $('aFrom'), t = $('aTo'), a = +f.value, b = +t.value;
+    if (b - a < 2){ if (document.activeElement === f) { a = b - 2; f.value = a; } else { b = a + 2; t.value = b; } }
+    S.from = a; S.to = b; $('aFromOut').textContent = a; $('aToOut').textContent = b;
+    $('aMsg').textContent = 'Mostrando ' + a + '–' + b + ' (' + (b - a + 1) + ' anos).';
+    sync();
+  }
+  $('aFrom').addEventListener('input', range); $('aTo').addEventListener('input', range);
+})();
+
+/* ---------------- Figura 7: índices ---------------- */
+(function(){
+  var wrap = $('chartB'); if (!wrap) return;
+  var SER = [
+    {k:'idx_vitimas', nome:'Vítimas', cls:'s1', on:true},
+    {k:'idx_taxa', nome:'Taxa por 100 mil hab.', cls:'s2', on:true},
+    {k:'idx_pop', nome:'População', cls:'s3', on:true}
+  ];
+  var tip = Tip(wrap), svg, lg = $('legendB');
+  var colors = {s1:'var(--c1)', s2:'var(--c2)', s3:'var(--c3)'};
+  SER.forEach(function(s){
+    var li = document.createElement('li'), b = document.createElement('button');
+    b.type = 'button'; b.setAttribute('aria-pressed', 'true');
+    b.innerHTML = '<i style="background:' + colors[s.cls] + '"></i>' + s.nome;
+    b.addEventListener('click', function(){ s.on = !s.on; b.setAttribute('aria-pressed', String(s.on)); go(); });
+    li.appendChild(b); lg.appendChild(li);
+  });
+  function draw(W){
+    if (svg) wrap.removeChild(svg);
+    var narrow = W < 560, H = Math.round(Math.max(260, Math.min(W * 0.55, 400)));
+    var m = {l: narrow ? 38 : 48, r: narrow ? 14 : 122, t: 14, b: 40};
+    var vis = SER.filter(function(s){ return s.on; });
+    var ymax = 130, x0 = 2002.5, x1 = 2022.5;
+    function X(v){ return m.l + (v - x0) / (x1 - x0) * (W - m.l - m.r); }
+    function Y(v){ return H - m.b - v / ymax * (H - m.t - m.b); }
+    svg = el('svg', {viewBox:'0 0 ' + W + ' ' + H, width:W, height:H, role:'img', 'aria-label':'Índices base 2003 igual a 100 para vítimas, taxa e população'}, null);
+    wrap.insertBefore(svg, wrap.firstChild);
+    [0, 25, 50, 75, 100, 125].forEach(function(t){
+      el('line', {x1:m.l, x2:W - m.r, y1:Y(t), y2:Y(t), 'class': t === 0 ? 'base' : (t === 100 ? 'base' : 'grid')}, svg);
+      el('text', {x:m.l - 8, y:Y(t) + 4, 'text-anchor':'end'}, svg).textContent = t;
+    });
+    var step = narrow ? 4 : 2;
+    R.forEach(function(r){ if ((r.ano - 2003) % step === 0) el('text', {x:X(r.ano), y:H - m.b + 18, 'text-anchor':'middle'}, svg).textContent = r.ano; });
+    el('text', {x:m.l, y:H - 4, 'class':'axis-title'}, svg).textContent = 'Índice (2003 = 100)';
+    vis.forEach(function(s){
+      el('path', {d:R.map(function(r, k){ return (k ? 'L' : 'M') + X(r.ano).toFixed(1) + ',' + Y(r[s.k]).toFixed(1); }).join(''), 'class':'ln ' + s.cls}, svg);
+    });
+    if (!narrow){ // rótulos diretos, com afastamento mínimo entre eles
+      var labs = vis.map(function(s){ return {s:s, y:Y(R[R.length-1][s.k])}; }).sort(function(a, b){ return a.y - b.y; });
+      for (var i = 1; i < labs.length; i++) if (labs[i].y - labs[i-1].y < 15) labs[i].y = labs[i-1].y + 15;
+      labs.forEach(function(l){
+        el('text', {x:X(2022) + 10, y:l.y + 4}, svg).textContent = l.s.nome.replace(' por 100 mil hab.', '/100 mil') + ' (' + fmt(R[R.length-1][l.s.k], 0) + ')';
+      });
+    }
+    var cross = el('line', {y1:m.t, y2:H - m.b, 'class':'cross', visibility:'hidden'}, svg);
+    var dots = vis.map(function(s){ return el('circle', {r:5, 'class':'pt ' + s.cls, visibility:'hidden'}, svg); });
+    var hit = el('rect', {x:m.l, y:m.t, width:W - m.l - m.r, height:H - m.t - m.b, 'class':'hit', tabindex:0, role:'img', 'aria-label':'Use as setas esquerda e direita para percorrer os anos'}, svg);
+    var cur = R.length - 1;
+    function at(i){
+      i = Math.max(0, Math.min(R.length - 1, i)); cur = i;
+      var r = R[i], cx = X(r.ano);
+      cross.setAttribute('x1', cx); cross.setAttribute('x2', cx); cross.setAttribute('visibility', 'visible');
+      var html = '<b>' + r.ano + '</b>';
+      vis.forEach(function(s, k){
+        dots[k].setAttribute('cx', cx); dots[k].setAttribute('cy', Y(r[s.k])); dots[k].setAttribute('visibility', 'visible');
+        html += '<br>' + s.nome + ': <b>' + fmt(r[s.k], 1) + '</b>';
+      });
+      tip.show(html, cx, m.t + 30);
+    }
+    function off(){ cross.setAttribute('visibility', 'hidden'); dots.forEach(function(d){ d.setAttribute('visibility', 'hidden'); }); tip.hide(); }
+    function fromEvent(ev){
+      var rc = svg.getBoundingClientRect(), px = (ev.clientX - rc.left) * (W / rc.width);
+      return Math.round(x0 + (px - m.l) / (W - m.l - m.r) * (x1 - x0) - 2003);
+    }
+    hit.addEventListener('pointermove', function(ev){ at(fromEvent(ev)); });
+    hit.addEventListener('pointerdown', function(ev){ at(fromEvent(ev)); });
+    hit.addEventListener('pointerleave', off);
+    hit.addEventListener('blur', off);
+    hit.addEventListener('focus', function(){ at(cur); });
+    hit.addEventListener('keydown', function(ev){
+      if (ev.key === 'ArrowLeft'){ ev.preventDefault(); at(cur - 1); }
+      if (ev.key === 'ArrowRight'){ ev.preventDefault(); at(cur + 1); }
+    });
+  }
+  var go = setup(wrap, draw);
+})();
+
+/* ---------------- Figura 5: variações ---------------- */
+(function(){
+  var wrap = $('chartC'); if (!wrap) return;
+  var only = false, tip = Tip(wrap), svg;
+  var V = R.filter(function(r){ return r.var_pct !== null; });
+  function draw(W){
+    if (svg) wrap.removeChild(svg);
+    var narrow = W < 520, H = Math.round(Math.max(270, Math.min(W * 0.55, 400)));
+    var m = {l: narrow ? 40 : 52, r: 12, t: 14, b: 44};
+    var data = V.filter(function(r){ return !only || r.acima_ruido; });
+    var ymin = -60, ymax = 70;
+    function Y(v){ return m.t + (ymax - v) / (ymax - ymin) * (H - m.t - m.b); }
+    var n = data.length, slot = (W - m.l - m.r) / n, bw = Math.min(slot * 0.68, 34);
+    function X(i){ return m.l + slot * (i + 0.5); }
+    svg = el('svg', {viewBox:'0 0 ' + W + ' ' + H, width:W, height:H, role:'img', 'aria-label':'Variação percentual anual do total de vítimas'}, null);
+    wrap.insertBefore(svg, wrap.firstChild);
+    [-60, -40, -20, 0, 20, 40, 60].forEach(function(t){
+      el('line', {x1:m.l, x2:W - m.r, y1:Y(t), y2:Y(t), 'class': t === 0 ? 'base' : 'grid'}, svg);
+      el('text', {x:m.l - 8, y:Y(t) + 4, 'text-anchor':'end'}, svg).textContent = (t > 0 ? '+' : '') + String(t).replace('-', '−') + '%';
+    });
+    var every = narrow ? 2 : 1;
+    data.forEach(function(r, i){ if (i % every === 0) el('text', {x:X(i), y:H - m.b + 18, 'text-anchor':'middle'}, svg).textContent = narrow ? String(r.ano).slice(2) : r.ano; });
+    el('text', {x:m.l, y:H - 4, 'class':'axis-title'}, svg).textContent = 'Variação em relação ao mesmo quadrimestre do ano anterior';
+    data.forEach(function(r, i){
+      var y0 = Y(0), y1 = Y(r.var_pct), top = Math.min(y0, y1), h = Math.max(Math.abs(y1 - y0), 1);
+      var b = el('rect', {x:X(i) - bw / 2, y:top, width:bw, height:h, rx:3, 'class':'bar' + (r.acima_ruido ? ' sig' : ''), tabindex:0, role:'img',
+        'aria-label': r.ano + ': ' + sgn(r.var_pct, 1) + '%, ' + (r.acima_ruido ? 'acima do ruído de Poisson' : 'compatível com o acaso')}, svg);
+      function on(){
+        tip.show('<b>' + r.ano + '</b>: ' + sgn(r.var_pct, 1) + '%<br><span class="dim">z de Poisson:</span> ' + sgn(r.z_poisson, 2) +
+          '<br><span class="dim">p (Bonferroni):</span> ' + (r.p_bonf < 0.001 ? '< 0,001' : fmt(r.p_bonf, 3)) +
+          '<br>' + (r.acima_ruido ? '<b>acima do ruído</b>' : 'compatível com o acaso'), X(i), top);
+      }
+      var hit = el('rect', {x:X(i) - slot / 2, y:m.t, width:slot, height:H - m.t - m.b, 'class':'hit'}, svg);
+      hit.addEventListener('pointerenter', on); hit.addEventListener('pointermove', on); hit.addEventListener('pointerleave', function(){ tip.hide(); });
+      b.addEventListener('focus', on); b.addEventListener('blur', function(){ tip.hide(); });
+      if (r.acima_ruido) el('text', {x:X(i), y: r.var_pct >= 0 ? y1 - 5 : y1 + 14, 'text-anchor':'middle', 'class':'halo', 'style':'font-weight:600'}, svg).textContent = sgn(r.var_pct, 0) + '%';
+    });
+  }
+  var go = setup(wrap, draw);
+  $('cOnly').addEventListener('change', function(e){ only = e.target.checked; go(); });
+})();
+
+/* ---------------- copiar código ---------------- */
+Array.prototype.forEach.call(document.querySelectorAll('.copy'), function(btn){
+  btn.addEventListener('click', function(){
+    var code = btn.parentNode.querySelector('code').textContent, old = btn.textContent;
+    function ok(){ btn.textContent = 'Copiado'; setTimeout(function(){ btn.textContent = old; }, 1400); }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(code).then(ok, function(){});
+    else { var ta = document.createElement('textarea'); ta.value = code; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); ok(); } catch(e){} document.body.removeChild(ta); }
+  });
+});
+})();
+</script>
+</body>
+</html>

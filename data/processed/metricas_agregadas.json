@@ -1,0 +1,421 @@
+{
+  "serie": {
+    "periodo": [
+      2003,
+      2022
+    ],
+    "n_anos": 20,
+    "total_acumulado": 3719,
+    "descritivas_vitimas": {
+      "n": 20,
+      "media": 185.95,
+      "desvio_padrao": 72.01715804328562,
+      "coef_variacao": 0.3872931327952978,
+      "minimo": 77.0,
+      "q1": 120.0,
+      "mediana": 196.5,
+      "q3": 227.0,
+      "maximo": 331.0,
+      "iqr": 107.0,
+      "mad": 50.0,
+      "assimetria": 0.20858314827159374
+    },
+    "descritivas_taxa": {
+      "n": 20,
+      "media": 2.930287964548735,
+      "desvio_padrao": 1.1941653528127982,
+      "coef_variacao": 0.4075249147046543,
+      "minimo": 1.199362838192089,
+      "q1": 1.787550454095911,
+      "mediana": 3.188594949712178,
+      "q3": 3.3812546861888997,
+      "maximo": 5.327185991033256,
+      "iqr": 1.5937042320929886,
+      "mad": 0.8305654371915412,
+      "assimetria": 0.3640660922265659
+    }
+  },
+  "rq1": {
+    "tendencia_vitimas": {
+      "kendall_tau": -0.15873238058133193,
+      "kendall_p": 0.3298804517888009,
+      "theil_sen_inclinacao": -3.9150326797385624,
+      "theil_sen_ic95": [
+        -10.88888888888889,
+        1.9375
+      ],
+      "theil_sen_intercepto": 8075.503267973857
+    },
+    "quebra_unica": {
+      "ano_inicio_segmento2": 2011,
+      "media_segmento1": 243.375,
+      "media_segmento2": 147.66666666666666,
+      "reducao_percentual_medias": -39.325457969525765,
+      "r2_dois_niveis": 0.44618522515647574,
+      "p_permutacao": 0.014099295035248238,
+      "n_permutacoes": 20000,
+      "semente": 2022
+    },
+    "regimes": [
+      {
+        "n": 8,
+        "media": 243.375,
+        "desvio_padrao": 52.292959099945485,
+        "coef_variacao": 0.21486577955807082,
+        "minimo": 190.0,
+        "q1": 204.5,
+        "mediana": 219.5,
+        "q3": 288.75,
+        "maximo": 331.0,
+        "iqr": 84.25,
+        "mad": 23.0,
+        "assimetria": 0.7459556449948198,
+        "regime": "2003–2010",
+        "inicio": 2003,
+        "fim": 2010
+      },
+      {
+        "n": 8,
+        "media": 121.375,
+        "desvio_padrao": 39.358925290205775,
+        "coef_variacao": 0.3242753885907788,
+        "minimo": 77.0,
+        "q1": 93.5,
+        "mediana": 109.0,
+        "q3": 142.5,
+        "maximo": 180.0,
+        "iqr": 49.0,
+        "mad": 19.0,
+        "assimetria": 0.8318812279555776,
+        "regime": "2011–2018",
+        "inicio": 2011,
+        "fim": 2018
+      },
+      {
+        "n": 4,
+        "media": 200.25,
+        "desvio_padrao": 51.63574343417552,
+        "coef_variacao": 0.2578563966750338,
+        "minimo": 123.0,
+        "q1": 196.5,
+        "mediana": 224.0,
+        "q3": 227.75,
+        "maximo": 230.0,
+        "iqr": 31.25,
+        "mad": 4.5,
+        "assimetria": -1.968847726773528,
+        "regime": "2019–2022",
+        "inicio": 2019,
+        "fim": 2022
+      }
+    ],
+    "mann_whitney": {
+      "2003–2010 vs 2011–2018": {
+        "U": 64.0,
+        "p": 0.000930972271575002
+      },
+      "2003–2010 vs 2019–2022": {
+        "U": 18.5,
+        "p": 0.7336467888227649
+      },
+      "2011–2018 vs 2019–2022": {
+        "U": 3.0,
+        "p": 0.03344162776165613
+      }
+    }
+  },
+  "rq2": {
+    "ano_inicial": 2003,
+    "ano_final": 2022,
+    "vitimas_inicial": 291,
+    "vitimas_final": 123,
+    "var_pct_vitimas": -57.73195876288659,
+    "taxa_inicial": 4.961013071604625,
+    "taxa_final": 1.813582884229284,
+    "var_pct_taxa": -63.44329559198911,
+    "populacao_inicial": 5865737.416932,
+    "populacao_final": 6782154.87528,
+    "var_pct_populacao": 15.623226769454002,
+    "cagr_vitimas_pct": -4.431135165212641,
+    "cagr_taxa_pct": -5.1585325365706485,
+    "cagr_populacao_pct": 0.76696132062537,
+    "decomposicao_log": {
+      "delta_ln_vitimas": -0.861138911799075,
+      "delta_ln_populacao": 0.14516667367893413,
+      "delta_ln_taxa": -1.006305585478009,
+      "parcela_populacao_pct": 14.425704852863156
+    },
+    "spearman_vitimas_taxa": {
+      "rho": 0.9729122393015385,
+      "p": 6.759441835615246e-13
+    },
+    "spearman_vitimas_populacao": {
+      "rho": -0.2648608725708751,
+      "p": 0.2590975158489966
+    },
+    "max_dif_posicao_ranking": 4,
+    "tendencia_taxa": {
+      "kendall_tau": -0.25263157894736843,
+      "kendall_p": 0.12841351117075267,
+      "theil_sen_inclinacao": -0.08562306687490281,
+      "theil_sen_ic95": [
+        -0.1904608004043086,
+        0.007521818445459738
+      ],
+      "theil_sen_intercepto": 175.5050170354541
+    },
+    "ano_pico_vitimas": 2008,
+    "ano_pico_taxa": 2008,
+    "ano_vale_vitimas": 2013,
+    "ano_vale_taxa": 2013
+  },
+  "rq3": {
+    "variacoes": {
+      "n_variacoes": 19,
+      "mediana_var_pct": -2.643171806167399,
+      "mad_var_pct": 17.573727361722955,
+      "cerca_tukey": [
+        -66.68392002501045,
+        67.53921204386629
+      ],
+      "limiar_z_modificado": 3.5,
+      "anos_tukey": [],
+      "anos_z_modificado": [],
+      "maiores_quedas": [
+        {
+          "ano": 2011,
+          "var_pct": -49.52830188679245
+        },
+        {
+          "ano": 2022,
+          "var_pct": -44.34389140271493
+        },
+        {
+          "ano": 2009,
+          "var_pct": -31.41993957703928
+        }
+      ],
+      "maiores_altas": [
+        {
+          "ano": 2017,
+          "var_pct": 62.16216216216217
+        },
+        {
+          "ano": 2015,
+          "var_pct": 41.30434782608696
+        },
+        {
+          "ano": 2007,
+          "var_pct": 40.48780487804877
+        }
+      ],
+      "anos_acima_ruido_poisson": [
+        2004,
+        2007,
+        2009,
+        2011,
+        2017,
+        2022
+      ],
+      "n_quedas": 11,
+      "n_altas": 7,
+      "n_estavel": 1,
+      "tabela": [
+        {
+          "ano": 2004,
+          "var_pct": -30.240549828178697,
+          "z_mod": -1.0592193160109225,
+          "tukey": false,
+          "z35": false,
+          "z_poisson": -3.959307181859458,
+          "p_bonf": 0.001428182571668897
+        },
+        {
+          "ano": 2005,
+          "var_pct": -6.403940886699511,
+          "z_mod": -0.14434267088630953,
+          "tukey": false,
+          "z35": false,
+          "z_poisson": -0.6557632539969138,
+          "p_bonf": 1.0
+        },
+        {
+          "ano": 2006,
+          "var_pct": 7.8947368421052655,
+          "z_mod": 0.40445713290973984,
+          "tukey": false,
+          "z35": false,
+          "z_poisson": 0.7547319081399414,
+          "p_bonf": 1.0
+        },
+        {
+          "ano": 2007,
+          "var_pct": 40.48780487804877,
+          "z_mod": 1.6554168148111976,
+          "tukey": false,
+          "z35": false,
+          "z_poisson": 3.7381319976216734,
+          "p_bonf": 0.003522459586739818
+        },
+        {
+          "ano": 2008,
+          "var_pct": 14.930555555555555,
+          "z_mod": 0.6745,
+          "tukey": false,
+          "z35": false,
+          "z_poisson": 1.7283159227750027,
+          "p_bonf": 1.0
+        },
+        {
+          "ano": 2009,
+          "var_pct": -31.41993957703928,
+          "z_mod": -1.1044856598680102,
+          "tukey": false,
+          "z35": false,
+          "z_poisson": -4.402671069339938,
+          "p_bonf": 0.00020315981371814163
+        },
+        {
+          "ano": 2010,
+          "var_pct": -6.607929515418498,
+          "z_mod": -0.15217199059970396,
+          "tukey": false,
+          "z35": false,
+          "z_poisson": -0.7159109398550215,
+          "p_bonf": 1.0
+        },
+        {
+          "ano": 2011,
+          "var_pct": -49.52830188679245,
+          "z_mod": -1.7995055680823493,
+          "tukey": false,
+          "z35": false,
+          "z_poisson": -5.878871365036471,
+          "p_bonf": 7.848390924359359e-08
+        },
+        {
+          "ano": 2012,
+          "var_pct": -12.149532710280376,
+          "z_mod": -0.36486513633926987,
+          "tukey": false,
+          "z35": false,
+          "z_poisson": -0.9169493006161777,
+          "p_bonf": 1.0
+        },
+        {
+          "ano": 2013,
+          "var_pct": -18.08510638297872,
+          "z_mod": -0.5926793250898639,
+          "tukey": false,
+          "z35": false,
+          "z_poisson": -1.3000224919331833,
+          "p_bonf": 1.0
+        },
+        {
+          "ano": 2014,
+          "var_pct": 19.48051948051948,
+          "z_mod": 0.8491328826104697,
+          "tukey": false,
+          "z35": false,
+          "z_poisson": 1.1538461538461537,
+          "p_bonf": 1.0
+        },
+        {
+          "ano": 2015,
+          "var_pct": 41.30434782608696,
+          "z_mod": 1.6867566784107295,
+          "tukey": false,
+          "z35": false,
+          "z_poisson": 2.5503930098132925,
+          "p_bonf": 0.20444293552468457
+        },
+        {
+          "ano": 2016,
+          "var_pct": -14.61538461538462,
+          "z_mod": -0.4595073869989358,
+          "tukey": false,
+          "z35": false,
+          "z_poisson": -1.2238975901615785,
+          "p_bonf": 1.0
+        },
+        {
+          "ano": 2017,
+          "var_pct": 62.16216216216217,
+          "z_mod": 2.4873037382408087,
+          "tukey": false,
+          "z35": false,
+          "z_poisson": 4.04485163414779,
+          "p_bonf": 0.0009947691390185139
+        },
+        {
+          "ano": 2018,
+          "var_pct": 0.0,
+          "z_mod": 0.10144799373313598,
+          "tukey": false,
+          "z35": false,
+          "z_poisson": 0.0,
+          "p_bonf": 1.0
+        },
+        {
+          "ano": 2019,
+          "var_pct": 27.777777777777768,
+          "z_mod": 1.1675912612063708,
+          "tukey": false,
+          "z35": false,
+          "z_poisson": 2.469323991623974,
+          "p_bonf": 0.25720032757862654
+        },
+        {
+          "ano": 2020,
+          "var_pct": -1.30434782608696,
+          "z_mod": 0.051385614217001316,
+          "tukey": false,
+          "z35": false,
+          "z_poisson": -0.1403340809174964,
+          "p_bonf": 1.0
+        },
+        {
+          "ano": 2021,
+          "var_pct": -2.643171806167399,
+          "z_mod": 0.0,
+          "tukey": false,
+          "z35": false,
+          "z_poisson": -0.2834733547569204,
+          "p_bonf": 1.0
+        },
+        {
+          "ano": 2022,
+          "var_pct": -44.34389140271493,
+          "z_mod": -1.600521892079341,
+          "tukey": false,
+          "z35": false,
+          "z_poisson": -5.283805886968482,
+          "p_bonf": 2.404019047169555e-06
+        }
+      ]
+    },
+    "volatilidade_por_regime": [
+      {
+        "regime": "2003–2010",
+        "n": 7,
+        "media_abs_var_pct": 19.7122081547208,
+        "mediana_abs_var_pct": 14.930555555555555,
+        "desvio_padrao_var_pct": 25.470427582898623
+      },
+      {
+        "regime": "2011–2018",
+        "n": 8,
+        "media_abs_var_pct": 27.165669383025595,
+        "mediana_abs_var_pct": 18.7828129317491,
+        "desvio_padrao_var_pct": 35.834933497368276
+      },
+      {
+        "regime": "2019–2022",
+        "n": 4,
+        "media_abs_var_pct": 19.017297203186764,
+        "mediana_abs_var_pct": 15.210474791972583,
+        "desvio_padrao_var_pct": 29.67305756688536
+      }
+    ]
+  }
+}
